@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>[论文笔记]Diffusion Models Beat GANs on Image Synthesis</title>
+    <link href="/2022/09/15/Paper-Notes-Diffusion-Models-Beat-GANs-on-Image-Synthesis/"/>
+    <url>/2022/09/15/Paper-Notes-Diffusion-Models-Beat-GANs-on-Image-Synthesis/</url>
+    
+    <content type="html"><![CDATA[<p>论文链接：<ahref="https://proceedings.neurips.cc/paper/2021/file/49ad23d1ec9fa4bd8d77d02681df5cfa-Paper.pdf">DiffusionModels Beat GANs on Image Synthesis</a></p><h1 id="background">Background</h1><ul><li>GANs在绝大多数图像生成任务上取得了SOTA的效果，然而其虽然可以生成逼真的图片，相较于likelihood-basedmodels，其分布覆盖面较小，即生成多样性较差，且比较难训练；</li><li>扩散模型的兴起，DDPM以及它的各种改进方法的提出；</li><li>目前在图像生成任务上的评估指标如FID，InceptionScore和Precision等，无法很好地体现模型的生成结果的多样性。如何正确高效地评估生成模型所产生的样本的质量，仍是一个开放的问题。</li></ul><h1 id="main-idea">Main Idea</h1><h2 id="architecture-improvements">Architecture Improvements</h2><p>作者通过实验发现改进模型架构确实可以在更大、多样性更强、分辨率更高的数据集上显著地提升生成样本的质量。</p><p>他们在模型架构上尝试了以下几点改进：</p><ul><li>增加模型的深度，同时减小模型的宽度，以保持模型的尺寸不变（这样做改善效果，但是增加训练时间，所以在接下来的实验中没有采用）；</li><li>增加attention head的数量；</li><li>在32x32，16x16和8x8的分辨率上都使用注意力机制（DDPM中只在16x16上使用）；</li><li>在上采样和下采样过程中使用BigGAN residualblock<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><spanclass="hint--top hint--rounded"aria-label="[Large scale gan training for high fidelity natural image synthesis](https://arxiv.org/pdf/1809.11096.pdf%20http://arxiv.org/abs/1809.11096.pdf)">[1]</span></a></sup></li><li>在残差连接时使用<spanclass="math inline">\(1/\sqrt(2)\)</span>的因子缩放。</li></ul><h2 id="adaptive-group-normalization">Adaptive Group Normalization</h2><hr /><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><ahref="https://arxiv.org/pdf/1809.11096.pdf%20http://arxiv.org/abs/1809.11096.pdf">Largescale gan training for high fidelity natural image synthesis</a><a href="#fnref:1" rev="footnote" class="footnote-backref">↩︎</a></span></span></li></ol></div></section>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>test_my_site</title>
     <link href="/2022/09/15/test-my-site/"/>
     <url>/2022/09/15/test-my-site/</url>
