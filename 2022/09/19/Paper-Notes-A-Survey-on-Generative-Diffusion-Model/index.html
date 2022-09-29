@@ -18,22 +18,23 @@
   <meta name="author" content="lizhiqi49">
   <meta name="keywords" content="">
   
-    <meta name="description" content="论文链接：Diffusion Models Beat GANs on Image Synthesis Background  GANs在绝大多数图像生成任务上取得了SOTA的效果，然而其虽然可以生成逼真的图片，相较于likelihood-based models，其分布覆盖面较小，即生成多样性较差，且比较难训练； 扩散模型的兴起，DDPM以及它的各种改进方法的提出； 目前在图像生成任">
+    <meta name="description" content="论文链接：A Survey on Generative Diffusion Model Introduction 目前的深度生成模型有以下几类： * VAE (Variational Auto-Encoder) * EBM * GAN (Generative Adversarial Network) * Normalizing flow * Diffusion models">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[论文笔记]Diffusion Models Beat GANs on Image Synthesis">
-<meta property="og:url" content="http://example.com/2022/09/15/Paper-Notes-Diffusion-Models-Beat-GANs-on-Image-Synthesis/index.html">
+<meta property="og:title" content="[论文笔记]A Survey on Generative Diffusion Model">
+<meta property="og:url" content="http://example.com/2022/09/19/Paper-Notes-A-Survey-on-Generative-Diffusion-Model/index.html">
 <meta property="og:site_name" content="Zhiqi&#39;s Blog">
-<meta property="og:description" content="论文链接：Diffusion Models Beat GANs on Image Synthesis Background  GANs在绝大多数图像生成任务上取得了SOTA的效果，然而其虽然可以生成逼真的图片，相较于likelihood-based models，其分布覆盖面较小，即生成多样性较差，且比较难训练； 扩散模型的兴起，DDPM以及它的各种改进方法的提出； 目前在图像生成任">
+<meta property="og:description" content="论文链接：A Survey on Generative Diffusion Model Introduction 目前的深度生成模型有以下几类： * VAE (Variational Auto-Encoder) * EBM * GAN (Generative Adversarial Network) * Normalizing flow * Diffusion models">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-09-15T13:09:32.000Z">
-<meta property="article:modified_time" content="2022-09-16T04:18:24.625Z">
+<meta property="article:published_time" content="2022-09-19T02:37:59.000Z">
+<meta property="article:modified_time" content="2022-09-28T13:27:45.569Z">
 <meta property="article:author" content="lizhiqi49">
 <meta property="article:tag" content="diffusion model">
+<meta property="article:tag" content="survey">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>[论文笔记]Diffusion Models Beat GANs on Image Synthesis - Zhiqi&#39;s Blog</title>
+  <title>[论文笔记]A Survey on Generative Diffusion Model - Zhiqi&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -198,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="[论文笔记]Diffusion Models Beat GANs on Image Synthesis"></span>
+            <span id="subtitle" data-typed-text="[论文笔记]A Survey on Generative Diffusion Model"></span>
           
         </div>
 
@@ -209,8 +210,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-09-15 21:09" pubdate>
-          2022年9月15日 晚上
+        <time datetime="2022-09-19 10:37" pubdate>
+          2022年9月19日 上午
         </time>
       </span>
     
@@ -221,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          164 字
         
       </span>
     
@@ -232,7 +233,7 @@
         
         
         
-          11 分钟
+          2 分钟
         
       </span>
     
@@ -270,93 +271,17 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">[论文笔记]Diffusion Models Beat GANs on Image Synthesis</h1>
+            <h1 style="display: none">[论文笔记]A Survey on Generative Diffusion Model</h1>
             
             
               <div class="markdown-body">
                 
-                <p>论文链接：<a
-target="_blank" rel="noopener" href="https://proceedings.neurips.cc/paper/2021/file/49ad23d1ec9fa4bd8d77d02681df5cfa-Paper.pdf">Diffusion
-Models Beat GANs on Image Synthesis</a></p>
-<h1 id="background">Background</h1>
-<ul>
-<li>GANs在绝大多数图像生成任务上取得了SOTA的效果，然而其虽然可以生成逼真的图片，相较于likelihood-based
-models，其分布覆盖面较小，即生成多样性较差，且比较难训练；</li>
-<li>扩散模型的兴起，DDPM以及它的各种改进方法的提出；</li>
-<li>目前在图像生成任务上的评估指标如FID，Inception
-Score和Precision等，无法很好地体现模型的生成结果的多样性。如何正确高效地评估生成模型所产生的样本的质量，仍是一个开放的问题。</li>
-</ul>
-<h1 id="main-idea">Main Idea</h1>
-<h2 id="architecture-improvements">Architecture Improvements</h2>
-<p>作者通过实验发现改进模型架构确实可以在更大、多样性更强、分辨率更高的数据集上显著地提升生成样本的质量。</p>
-<p>他们在模型架构上尝试了以下几点改进：</p>
-<ul>
-<li>增加模型的深度，同时减小模型的宽度，以保持模型的尺寸不变（这样做改善效果，但是增加训练时间，所以在接下来的实验中没有采用）；</li>
-<li>增加attention head的数量；</li>
-<li>在32x32，16x16和8x8的分辨率上都使用注意力机制（DDPM中只在16x16上使用）；</li>
-<li>在上采样和下采样过程中使用BigGAN residual
-block<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span
-class="hint--top hint--rounded"
-aria-label="[Large scale gan training for high fidelity natural image synthesis](https://arxiv.org/pdf/1809.11096.pdf%20http://arxiv.org/abs/1809.11096.pdf)">[1]</span></a></sup></li>
-<li>在残差连接时使用<span
-class="math inline">\(\frac{1}{\sqrt{2}}\)</span>的因子缩放。</li>
-</ul>
-<h2 id="adaptive-group-normalization-adagn">Adaptive Group Normalization
-(AdaGN)</h2>
-<p>源自Nichol和Dhariwal等人对DDPM作出的一些改进<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span
-class="hint--top hint--rounded"
-aria-label="[Improved denoising diffusion probabilistic models](http://proceedings.mlr.press/v139/nichol21a/nichol21a.pdf)">[2]</span></a></sup>，在他们的实验中，AdaGN可以提升DDPM的性能。</p>
-<p>该操作可将timestep和class embedding的信息融入残差块中，公式为： <span
-class="math display">\[
-\text{AdaGN}(h, y)=y_s \text{GroupNorm}(h)+y_b
-\]</span> 其中，<span
-class="math inline">\(h\)</span>表示第一个卷积后的残差块的intermediate
-activatetions，<span class="math inline">\(y=[y_s,
-y_b]\)</span>是对timestep和class embedding的线性映射。</p>
-<h2 id="classifier-guidance">Classifier Guidance</h2>
-<p>GANs的成功很大程度上依赖于类别标签，GAN的discriminator的作用类似于一个分类器<span
-class="math inline">\(p(y|x)\)</span>。基于这个情况，作者提出了同样使用分类器来改进diffusion
-generator。具体来说，对noisy images即<span
-class="math inline">\(x_t\)</span>训练一个分类器<span
-class="math inline">\(p_\phi(y|x_t, t)\)</span>，使用梯度<span
-class="math inline">\(\nabla_{x_t}\text{log}\ p_\phi(y|x_t,
-t)\)</span>来引导diffusion model生成类别为<span
-class="math inline">\(y\)</span>的图像。基于上述思想，作者提出了两种算法：</p>
-<h3 id="algorithm-1">Algorithm 1</h3>
-<figure>
-<img
-src="/img/Paper-Notes-Diffusion-Models-Beat-GANs-on-Image-Synthesis/algorithm1.png" srcset="/img/loading.gif" lazyload
-alt="Algorithm 1" />
-<figcaption aria-hidden="true">Algorithm 1</figcaption>
-</figure>
-<h3 id="algorithm-2">Algorithm 2</h3>
-<figure>
-<img
-src="/img/Paper-Notes-Diffusion-Models-Beat-GANs-on-Image-Synthesis/algorithm2.png" srcset="/img/loading.gif" lazyload
-alt="Algorithm 2" />
-<figcaption aria-hidden="true">Algorithm 2</figcaption>
-</figure>
-<hr />
-<section class="footnotes">
-<div class="footnote-list">
-<ol>
-<li>
-<span id="fn:1" class="footnote-text"><span><a
-target="_blank" rel="noopener" href="https://arxiv.org/pdf/1809.11096.pdf%20http://arxiv.org/abs/1809.11096.pdf">Large
-scale gan training for high fidelity natural image synthesis</a>
-<a href="#fnref:1" rev="footnote" class="footnote-backref">
-↩︎</a></span></span>
-</li>
-<li>
-<span id="fn:2" class="footnote-text"><span><a
-target="_blank" rel="noopener" href="http://proceedings.mlr.press/v139/nichol21a/nichol21a.pdf">Improved
-denoising diffusion probabilistic models</a>
-<a href="#fnref:2" rev="footnote" class="footnote-backref">
-↩︎</a></span></span>
-</li>
-</ol>
-</div>
-</section>
+                <p>论文链接：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2209.02646.pdf">A Survey on
+Generative Diffusion Model</a></p>
+<h1 id="introduction">Introduction</h1>
+<p>目前的深度生成模型有以下几类： * VAE (Variational Auto-Encoder) * EBM
+* GAN (Generative Adversarial Network) * Normalizing flow * Diffusion
+models</p>
 
                 
               </div>
@@ -371,6 +296,8 @@ denoising diffusion probabilistic models</a>
       
         <a href="/tags/diffusion-model/">#diffusion model</a>
       
+        <a href="/tags/survey/">#survey</a>
+      
     </div>
   
 </div>
@@ -381,8 +308,8 @@ denoising diffusion probabilistic models</a>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>[论文笔记]Diffusion Models Beat GANs on Image Synthesis</div>
-      <div>http://example.com/2022/09/15/Paper-Notes-Diffusion-Models-Beat-GANs-on-Image-Synthesis/</div>
+      <div>[论文笔记]A Survey on Generative Diffusion Model</div>
+      <div>http://example.com/2022/09/19/Paper-Notes-A-Survey-on-Generative-Diffusion-Model/</div>
     </div>
     <div class="license-meta">
       
@@ -394,7 +321,7 @@ denoising diffusion probabilistic models</a>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年9月15日</div>
+          <div>2022年9月19日</div>
         </div>
       
       
@@ -426,9 +353,9 @@ denoising diffusion probabilistic models</a>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/09/19/Paper-Notes-A-Survey-on-Generative-Diffusion-Model/" title="[论文笔记]A Survey on Generative Diffusion Model">
+                      <a href="/2022/09/19/Paper-Notes-Score-Based-Generative-Modeling-Through-Stochastic-Differential-Equations/" title="[论文笔记]Score-Based Generative Modeling Through Stochastic Differential Equations">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">[论文笔记]A Survey on Generative Diffusion Model</span>
+                        <span class="hidden-mobile">[论文笔记]Score-Based Generative Modeling Through Stochastic Differential Equations</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -436,8 +363,8 @@ denoising diffusion probabilistic models</a>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/09/15/hello-world/" title="Hello World">
-                        <span class="hidden-mobile">Hello World</span>
+                      <a href="/2022/09/15/Paper-Notes-Diffusion-Models-Beat-GANs-on-Image-Synthesis/" title="[论文笔记]Diffusion Models Beat GANs on Image Synthesis">
+                        <span class="hidden-mobile">[论文笔记]Diffusion Models Beat GANs on Image Synthesis</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
