@@ -26,7 +26,7 @@
 <meta property="og:description" content="简介 如今扩散模型在AI各个领域的生成任务中大火，其流行始于2020年Ho等人提出的DDPM(Denoising Diffusion Probabilistic Models)，也是我们今天要讨论的主人公。但其实，该模型虽然也起名为“扩散模型”，但其与传统的基于郎之万(Langevin)方程采样的扩散模型在原理上大为不同，不过我们这里不再对其展开叙述。 很多人一提到扩散模型，对它的印象就是">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-28T01:41:16.000Z">
-<meta property="article:modified_time" content="2022-09-29T09:10:39.145Z">
+<meta property="article:modified_time" content="2022-09-29T11:07:10.599Z">
 <meta property="article:author" content="lizhiqi49">
 <meta property="article:tag" content="diffusion model">
 <meta property="article:tag" content="DDPM">
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          19k 字
+          18k 字
         
       </span>
     
@@ -360,7 +360,6 @@ p_{\theta}(\mathbf{x}_{t-1}|\mathbf{x}_t)=\mathcal{N}\left(\mathbf{x}_{t-1};\mu_
 <h1 id="数学推导得到损失函数">数学推导得到损失函数</h1>
 <h2 id="逆转前向扩散过程">逆转前向扩散过程</h2>
 <p>首先，我们对式(2)进行拓展：</p>
-$$
 <span class="math display">\[\begin{aligned}
 \mathbf{x}_t &amp;=
 \sqrt{\alpha_t}\mathbf{x}_{t-1}+\sqrt{1-\alpha_t}\mathbf{\epsilon}_{t-1}   &amp;&amp;;\text{all
@@ -381,7 +380,6 @@ Gaussian}  \\
 }\bar{\alpha}_t=\prod_{k=1}^{t}\alpha_k.
 
 \end{aligned}\]</span>
-<p>$$</p>
 <p>这里只保留头尾可以得到：</p>
 <p><span class="math display">\[
 \mathbf{x}_t=\sqrt{\bar{\alpha}_t}\mathbf{x}_0+\sqrt{1-\bar{\alpha}_t}\mathbf{\epsilon}_t  \tag{6}
@@ -407,7 +405,7 @@ class="math inline">\(q(\mathbf{x}_t|\mathbf{x}_{t-1})\)</span>的逆过程<span
 class="math inline">\(q(\mathbf{x}_{t-1}|\mathbf{x}_t)\)</span>，然而，该条件概率是不可得到的，因为它需要遍历整个样本的分布。但是通过贝叶斯公式，我们可以得到<span
 class="math inline">\(q(\mathbf{x}_{t-1}|\mathbf{x}_t,
 \mathbf{x}_0)\)</span>：</p>
-<p>$$ <span class="math display">\[\begin{equation}\tag{7}
+<p><span class="math display">\[\begin{equation}\tag{7}
 \begin{aligned}
 
 q(\mathbf{x}_{t-1}|\mathbf{x}_t, \mathbf{x}_0) &amp;=
@@ -426,7 +424,7 @@ q(\mathbf{x}_{t-1}|\mathbf{x}_t, \mathbf{x}_0) &amp;=
 \text{exp}\left(-\frac{1}{2}\left((\frac{\alpha_t}{\beta_t}+\frac{1}{1-\bar{\alpha}_{t-1}})\mathbf{x}_{t-1}^2-2(\frac{\sqrt{\alpha_t}}{\beta_t}\mathbf{x}_t+\frac{\sqrt{\bar{\alpha}_{t-1}}}{1-\bar{\alpha}_{t-1}}\mathbf{x}_0)\mathbf{x}_{t-1}+C(\mathbf{x}_t,\mathbf{x}_0)\right)\right)
 
 \end{aligned}
-\end{equation}\]</span> $$</p>
+\end{equation}\]</span></p>
 <p>其中<span
 class="math inline">\(C(\mathbf{x}_t,\mathbf{x}_0)\)</span>是一个含有<span
 class="math inline">\(\mathbf{x}_t\)</span>和<span
@@ -437,7 +435,7 @@ class="math inline">\(q(\mathbf{x}_{t-1}|\mathbf{x}_t,\mathbf{x}_0)\sim
 <p><span class="math display">\[
 \tilde{\beta}_t=\frac{1-\bar{\alpha}_{t-1}}{1-\bar{\alpha}_t}\beta_t    \tag{8}
 \]</span></p>
-<p>$$ <span class="math display">\[\begin{equation}\tag{9}
+<p><span class="math display">\[\begin{equation}\tag{9}
 \begin{aligned}
 
 \tilde{\mu}_t &amp;=
@@ -448,7 +446,7 @@ class="math inline">\(q(\mathbf{x}_{t-1}|\mathbf{x}_t,\mathbf{x}_0)\sim
 \frac{1}{\sqrt{\alpha_t}}(\mathbf{x}_t-\frac{1-\alpha_t}{\sqrt{1-\bar{\alpha}_t}}\mathbf{\epsilon}_t)  
 
 \end{aligned}
-\end{equation}\]</span> $$</p>
+\end{equation}\]</span></p>
 <p>上面式(9)中代入了式(6)的变体：<span
 class="math inline">\(\mathbf{x}_0=\frac{1}{\sqrt{\bar{\alpha}_t}}(\mathbf{x}_t-\sqrt{1-\bar{\alpha}_t}\mathbf{\epsilon}_t)\)</span>。</p>
 <p>这里可能有人会疑惑，怎么知道<span
@@ -503,8 +501,8 @@ class="math inline">\(\tilde{\mu}_t\)</span>的格式： <span
 class="math display">\[
 \mu_\theta(\mathbf{x}_t,t)=\frac{1}{\sqrt{\alpha}_t}\left(\mathbf{x}_t-\frac{1-\alpha_t}{\sqrt{1-\bar{\alpha}_t}}\mathbf{\epsilon}_{\theta}(\mathbf{x}_t,t)\right)    \tag{14}
 \]</span></p>
-<p>这样式(13)可以化为： <span class="math display">\[
-\begin{equation}\tag{15}
+<p>这样式(13)可以化为：</p>
+<p><span class="math display">\[\begin{equation}\tag{15}
 \begin{aligned}
 L_2 &amp;=
 \sum_{t=1}^{T}\frac{\beta_t^2}{2\alpha_t\hat{\beta}_t(1-\bar{\alpha}_t)}||\mathbf{\epsilon}_t-\mathbf{\epsilon}_{\theta}(\mathbf{x}_t,t)||^2  \\
@@ -512,8 +510,7 @@ L_2 &amp;=
 \sum_{t=1}^{T}\frac{\beta_t^2}{2\alpha_t\hat{\beta}_t(1-\bar{\alpha}_t)}||\mathbf{\epsilon}_t-\mathbf{\epsilon}_{\theta}(\sqrt{\bar{\alpha}_t}\mathbf{x}_0+\sqrt{1-\bar{\alpha}_t}\mathbf{\epsilon}_t,t)||^2   &amp;&amp;;\text{introduced
 equation (6)}
 \end{aligned}
-\end{equation}
-\]</span></p>
+\end{equation}\]</span></p>
 <p>在这种形式下，模型转为预测每一步的噪声<span
 class="math inline">\(\mathbf{\epsilon}_t\)</span>。而在原论文中，作者Ho等人通过实验发现，上式去掉前面的权重项后训练的效果更好，即在实际训练时，我们只需要使用一个简化后的目标函数：
 <span class="math display">\[
@@ -537,7 +534,7 @@ q(\mathbf{x}_{1:T}|\mathbf{x}_0)=\prod_{t=1}^{T}q(\mathbf{x}_t|\mathbf{x}_{t-1})
 p_\theta(\mathbf{x}_{0:T})=p_\theta(\mathbf{x}_T)\prod_{t=1}^{T}p_\theta({\mathbf{x}_{t-1}|\mathbf{x}_t})   \tag{19}
 \]</span></p>
 <p>由于KL散度非负，故而有：</p>
-<p>$$ <span class="math display">\[\begin{equation}\tag{20}
+<p><span class="math display">\[\begin{equation}\tag{20}
 \begin{aligned}
 
 -\log{p_\theta(\mathbf{x}_0)}
@@ -552,14 +549,14 @@ p_\theta(\mathbf{x}_{0:T})=p_\theta(\mathbf{x}_T)\prod_{t=1}^{T}p_\theta({\mathb
 \mathbb{E}_{q(\mathbf{x}_{1:T}|\mathbf{x}_0)}\left[\log{\frac{q(\mathbf{x}_{1:T}|\mathbf{x}_0)}{p_\theta(\mathbf{x}_{0:T})}}\right]
 
 \end{aligned}
-\end{equation}\]</span> $$</p>
+\end{equation}\]</span></p>
 <p>对上式左右取期望<span
 class="math inline">\(\mathbb{E}_{q(\mathbf{x}_0)}\)</span>，可得：
 <span class="math display">\[
 \mathbb{E}_{q(\mathbf{x}_0)}[-\log{p_\theta(\mathbf{x}_0)}]\leq\mathbb{E}_{q(\mathbf{x}_0)}\left(\mathbb{E}_{q(\mathbf{x}_{1:T}|\mathbf{x}_0)}\left[\log{\frac{q(\mathbf{x}_{1:T}|\mathbf{x}_0)}{p_\theta(\mathbf{x}_{0:T})}}\right]\right)=\mathbb{E}_{q(\mathbf{x}_{0:T})}\left[\log{\frac{q(\mathbf{x}_{1:T}|\mathbf{x}_0)}{p_\theta(\mathbf{x}_{0:T})}}\right]=L_{\mathrm{VLB}}  \tag{21}
 \]</span></p>
 <p>通过Jensen不等式也可以得到相同的结果：</p>
-<p>$$ <span class="math display">\[\begin{equation}\tag{22}
+<p><span class="math display">\[\begin{equation}\tag{22}
 \begin{aligned}
 
 L_{\mathrm{CE}} &amp;=
@@ -579,7 +576,7 @@ L_{\mathrm{CE}} &amp;=
 L_{\mathrm{VLB}}
 
 \end{aligned}
-\end{equation}\]</span> $$</p>
+\end{equation}\]</span></p>
 <p>由于交叉熵<span class="math inline">\(L_{\mathrm{CE}}\leq
 L_{\mathrm{VLB}}\)</span>，所以优化<span
 class="math inline">\(L_{\mathrm{VLB}}\)</span>可以起到优化<span
@@ -587,7 +584,7 @@ class="math inline">\(L_{\mathrm{CE}}\)</span>的效果。对<span
 class="math inline">\(L_{\mathrm{VLB}}\)</span>进一步推导可得（这里直接复制lilianweng博客<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span
 class="hint--top hint--rounded"
 aria-label="[Weng, Lilian. (Jul 2021). What are diffusion models? Lil’Log.](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/.)">[3]</span></a></sup>中的推导过程）：</p>
-<p>$$ <span class="math display">\[\begin{equation}\tag{23}
+<p><span class="math display">\[\begin{equation}\tag{23}
 \begin{aligned}
 
 L_{\mathrm{VLB}}
@@ -653,7 +650,7 @@ p_{\theta}\left(\mathbf{x}_{t-1} \mid
 p_{\theta}\left(\mathbf{x}_{0} \mid \mathbf{x}_{1}\right)}_{L_{0}}]
 
 \end{aligned}
-\end{equation}\]</span> $$</p>
+\end{equation}\]</span></p>
 <p>其中<span
 class="math inline">\(L_T\)</span>是一个常量，在训练过程中可以忽略；<span
 class="math inline">\(L_{t-1}\)</span>的计算在思路一的式(11)-(16)已经探讨过了，它是优化目标中的主要部分；<span
