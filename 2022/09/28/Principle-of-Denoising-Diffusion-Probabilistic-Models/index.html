@@ -26,7 +26,7 @@
 <meta property="og:description" content="简介 如今扩散模型在AI各个领域的生成任务中大火，其流行始于2020年Ho等人提出的DDPM(Denoising Diffusion Probabilistic Models)，也是我们今天要讨论的主人公。但其实，该模型虽然也起名为“扩散模型”，但其与传统的基于郎之万(Langevin)方程采样的扩散模型在原理上大为不同，不过我们这里不再对其展开叙述。 很多人一提到扩散模型，对它的印象就是">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-28T01:41:16.000Z">
-<meta property="article:modified_time" content="2022-09-29T08:45:28.503Z">
+<meta property="article:modified_time" content="2022-09-29T09:10:39.145Z">
 <meta property="article:author" content="lizhiqi49">
 <meta property="article:tag" content="diffusion model">
 <meta property="article:tag" content="DDPM">
@@ -362,8 +362,8 @@ p_{\theta}(\mathbf{x}_{t-1}|\mathbf{x}_t)=\mathcal{N}\left(\mathbf{x}_{t-1};\mu_
 $$
 <span class="math display">\[\begin{aligned}
 \mathbf{x}_t &amp;=
-\sqrt{\alpha_t}\mathbf{x}_{t-1}+\sqrt{1-\alpha_t}\mathbf{\epsilon}_{t-1}   &amp;&amp;;\text{where\
-all } \mathbf{\epsilon}\sim\mathcal{N}(0,\mathbf{I})  \\
+\sqrt{\alpha_t}\mathbf{x}_{t-1}+\sqrt{1-\alpha_t}\mathbf{\epsilon}_{t-1}   &amp;&amp;;\text{all
+} \mathbf{\epsilon}\sim\mathcal{N}(0,\mathbf{I})  \\
     &amp;=
 \sqrt{\alpha_t}(\sqrt{\alpha_{t-1}}\mathbf{x}_{t-2}+\sqrt{1-\alpha_{t-1}}\mathbf{\epsilon}_{t-2})+\sqrt{1-\alpha_t}\mathbf{\epsilon}_{t-1}  \\
     &amp;=
