@@ -4,6 +4,70 @@
   
   
   <entry>
+    <title>[论文周记]DreamFusion, Latent-Diffusion, Plenoxel, DVGO and VoxGRAF</title>
+    <link href="/2022/10/21/Paper-Weekly-Notes-2022-10-23/"/>
+    <url>/2022/10/21/Paper-Weekly-Notes-2022-10-23/</url>
+    
+    <content type="html"><![CDATA[<h1 id="dreamfuison-text-to-3d-using-2d-diffusion">DreamFuison:Text-to-3D using 2D Diffusion</h1><p><a href="https://arxiv.org/pdf/2209.14988.pdf">论文链接</a></p><h2 id="pipeline">Pipeline</h2><figure><img src="/img/Paper-Weekly-Notes-2022-10-23/dreamfusion-pipeline.png"alt="Pipeline of DreamFusion" /><figcaption aria-hidden="true">Pipeline of DreamFusion</figcaption></figure><h2 id="main-idea">main idea</h2><p>...待完善</p><h1id="high-resolution-image-synthesis-with-latent-diffusion-models-latent-diffusion">High-ResolutionImage Synthesis with Latent Diffusion Models (Latent-Diffusion)</h1><p><ahref="https://openaccess.thecvf.com/content/CVPR2022/papers/Rombach_High-Resolution_Image_Synthesis_With_Latent_Diffusion_Models_CVPR_2022_paper.pdf">论文链接</a></p><h2 id="pipeline-1">Pipeline</h2><figure><imgsrc="/img/Paper-Weekly-Notes-2022-10-23/latent-diffusion-pipeline.png"alt="Pipeline of latent-diffusion" /><figcaption aria-hidden="true">Pipeline of latent-diffusion</figcaption></figure><h2 id="main-idea-1">Main idea</h2><ul><li>预训练image-to-image的自编码器，使用encoder将输入的image映射到latentspace；</li><li>在image的latent上训练diffusion model；</li><li>调整了diffusion model的UNet的框架，添加attentionblock，使得diffusionmodel的采样过程可以更加灵活地结合不同类型的condition information；</li><li>对于不同类型的condition，使用不同的encoder以得到对应的feature（domainspecific encoder）。</li></ul><h2 id="advantage">Advantage</h2><ul><li>基于latent而非image来训练diffusion model，减少了计算量；</li><li>基于此模型基础产生了stable-diffsuion，是目前text-to-image领域最先进的模型之一，且用于商用的AI绘画程序（NovelAI等）。</li></ul><h1 id="plenoxels-radiance-fields-without-neural-networks">Plenoxels:Radiance Fields without Neural Networks</h1><p><ahref="https://openaccess.thecvf.com/content/CVPR2022/papers/Fridovich-Keil_Plenoxels_Radiance_Fields_Without_Neural_Networks_CVPR_2022_paper.pdf">论文链接</a></p><h2 id="pipeline-2">Pipeline</h2><figure><img src="/img/Paper-Weekly-Notes-2022-10-23/plenoxel-pipeline.png"alt="Pipeline of Plenoxel" /><figcaption aria-hidden="true">Pipeline of Plenoxel</figcaption></figure><h2 id="main-idea-2">Main idea</h2><ul><li>仅使用sparse voxel（每个voxelcorner存储特定的特征值）而不含神经网络来表示一个辐射场；</li><li>每个voxel corner存储的特征为不透明度<spanclass="math inline">\(\sigma\)</span>和球谐系数（spherical harmoniccoefficients）；</li><li>使用了coarse-to-fine过程：从低分辨率的voxels开始训练，在训练的过程中对voxels进行剪枝，并对剩余的voxels进行再次划分，从而提高分辨率；</li><li>在损失函数中引入了TV（totalvariation）regularization，帮助消除噪声;</li><li>在实现时为voxel volume rendering定制了PytorchCUDA扩展来进行加速。</li></ul><h2 id="advantage-1">Advantage</h2><ul><li>提出了一种新颖的辐射场的表示方式；</li><li>相较于传统NeRF，训练速度大幅度提升（约2个数量级），且合成新视图的效果可与基于神经网络的传统NeRF相提并论；</li><li>该研究证明了NeRF可以高质量合成新视图的核心不是神经网络所带来的隐式表示，而是可微分的渲染方程。</li></ul><h1id="direct-voxel-grid-optimization-super-fast-convergence-for-radiance-fields-reconstructiondvgo">DirectVoxel Grid Optimization: Super-fast Convergence for Radiance FieldsReconstruction（DVGO）</h1><p><ahref="https://openaccess.thecvf.com/content/CVPR2022/papers/Sun_Direct_Voxel_Grid_Optimization_Super-Fast_Convergence_for_Radiance_Fields_Reconstruction_CVPR_2022_paper.pdf">论文链接</a></p><h2 id="pipeline-3">Pipeline</h2><figure><img src="/img/Paper-Weekly-Notes-2022-10-23/dvgo-pipeline.png"alt="Pipeline of DVGO" /><figcaption aria-hidden="true">Pipeline of DVGO</figcaption></figure><h2 id="main-idea-3">Main idea</h2><p>同样是voxel-based NeRF，相较于Plenoxel，DVGO：</p><ul><li>在表示颜色时不是用球谐函数，而是使用特征向量+浅层MLP的方式去拟合颜色；</li><li>没有使用TV正则化，且不是sparse voxel；</li><li>实现过程不依赖定制化的CUDA扩展；</li><li>同样是coarse-to-fine的流程，但具有很多较为细节的trick</li></ul><h2 id="advantage-2">Advantage</h2><ul><li>相较于传统NeRF，训练速度有很大提升，训练速度和生成图片的质量与Plenoxel相仿。</li></ul><h1id="voxgraf-fast-3d-aware-image-synthesis-with-sparse-voxel-grids">VoxGRAF:Fast 3D-Aware Image Synthesis with Sparse Voxel Grids</h1><p><a href="https://arxiv.org/pdf/2206.07695.pdf">论文链接</a></p><h2 id="pipeline-4">Pipeline</h2><figure><img src="/img/Paper-Weekly-Notes-2022-10-23/voxGRAF-pipeline.png"alt="Pipeline of VoxGRAF" /><figcaption aria-hidden="true">Pipeline of VoxGRAF</figcaption></figure><h2 id="main-idea-4">Main idea</h2><ul><li>将生成过程分为前景和背景，前景用由Sparsevoxel表示的辐射场表示，背景使用一个2D的生成器来生成；</li><li>Sparse voxel的corner上的特征为不透明度<spanclass="math inline">\(\sigma\)</span>和rgb颜色<spanclass="math inline">\(c\)</span>；</li><li>coarse-to-fine过程同plenoxel；</li><li>生成的前景和背景通过alpha composition来结合到一起。</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>论文笔记</category>
+      
+      <category>论文周记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>voxel-represented NeRF</tag>
+      
+      <tag>diffusion + NeRF</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>[论文笔记]PointFlow: 3D Point Cloud Generation with Continuous Normalizing Flows</title>
+    <link href="/2022/10/10/Paper-Notes-PointFlow-3D-Point-Cloud-Generation-with-Continuous-Normalizing-Flows/"/>
+    <url>/2022/10/10/Paper-Notes-PointFlow-3D-Point-Cloud-Generation-with-Continuous-Normalizing-Flows/</url>
+    
+    <content type="html"><![CDATA[<p>论文链接：<ahref="https://openaccess.thecvf.com/content_ICCV_2019/papers/Yang_PointFlow_3D_Point_Cloud_Generation_With_Continuous_Normalizing_Flows_ICCV_2019_paper.pdf">PointFlow:3D Point Cloud Generation with Continuous Normalizing Flows</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>论文笔记</category>
+      
+      <category>点云生成</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>point-based generation</tag>
+      
+      <tag>flow-based model</tag>
+      
+      <tag>ICCV</tag>
+      
+      <tag>2019</tag>
+      
+      <tag>oral paper</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>[Pytorch]设置两个参数来加速设备间的数据拷贝和处理：pin_memory和non_blocking</title>
     <link href="/2022/10/09/Pytorch-Notes-Setting-Two-Arguments-to-Accelerate-Data-Copying-Among-Devices/"/>
     <url>/2022/10/09/Pytorch-Notes-Setting-Two-Arguments-to-Accelerate-Data-Copying-Among-Devices/</url>

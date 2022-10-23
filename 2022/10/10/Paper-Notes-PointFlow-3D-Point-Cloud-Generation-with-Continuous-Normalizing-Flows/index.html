@@ -18,23 +18,26 @@
   <meta name="author" content="lizhiqi49">
   <meta name="keywords" content="">
   
-    <meta name="description" content="今天在看PointFlow的代码时看到论文作者在dataloader中设置了参数pin_memory&#x3D;True: 123456789train_loader &#x3D; torch.utils.data.DataLoader(        dataset&#x3D;tr_dataset, batch_size&#x3D;args.batch_size, shuffle&#x3D;(train_sampler is None),">
+    <meta name="description" content="论文链接：PointFlow: 3D Point Cloud Generation with Continuous Normalizing Flows">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Pytorch]设置两个参数来加速设备间的数据拷贝和处理：pin_memory和non_blocking">
-<meta property="og:url" content="http://example.com/2022/10/09/Pytorch-Notes-Setting-Two-Arguments-to-Accelerate-Data-Copying-Among-Devices/index.html">
+<meta property="og:title" content="[论文笔记]PointFlow: 3D Point Cloud Generation with Continuous Normalizing Flows">
+<meta property="og:url" content="http://example.com/2022/10/10/Paper-Notes-PointFlow-3D-Point-Cloud-Generation-with-Continuous-Normalizing-Flows/index.html">
 <meta property="og:site_name" content="Zhiqi&#39;s Blog">
-<meta property="og:description" content="今天在看PointFlow的代码时看到论文作者在dataloader中设置了参数pin_memory&#x3D;True: 123456789train_loader &#x3D; torch.utils.data.DataLoader(        dataset&#x3D;tr_dataset, batch_size&#x3D;args.batch_size, shuffle&#x3D;(train_sampler is None),">
+<meta property="og:description" content="论文链接：PointFlow: 3D Point Cloud Generation with Continuous Normalizing Flows">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-10-09T13:40:58.000Z">
-<meta property="article:modified_time" content="2022-10-09T14:01:01.071Z">
+<meta property="article:published_time" content="2022-10-10T13:02:15.000Z">
+<meta property="article:modified_time" content="2022-10-10T13:29:01.388Z">
 <meta property="article:author" content="lizhiqi49">
-<meta property="article:tag" content="pytorch">
-<meta property="article:tag" content="coding">
+<meta property="article:tag" content="point-based generation">
+<meta property="article:tag" content="flow-based model">
+<meta property="article:tag" content="ICCV">
+<meta property="article:tag" content="2019">
+<meta property="article:tag" content="oral paper">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>[Pytorch]设置两个参数来加速设备间的数据拷贝和处理：pin_memory和non_blocking - Zhiqi&#39;s Blog</title>
+  <title>[论文笔记]PointFlow: 3D Point Cloud Generation with Continuous Normalizing Flows - Zhiqi&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -200,7 +203,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="[Pytorch]设置两个参数来加速设备间的数据拷贝和处理：pin_memory和non_blocking"></span>
+            <span id="subtitle" data-typed-text="[论文笔记]PointFlow: 3D Point Cloud Generation with Continuous Normalizing Flows"></span>
           
         </div>
 
@@ -211,8 +214,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-09 21:40" pubdate>
-          2022年10月9日 晚上
+        <time datetime="2022-10-10 21:02" pubdate>
+          2022年10月10日 晚上
         </time>
       </span>
     
@@ -223,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          67 字
         
       </span>
     
@@ -234,7 +237,7 @@
         
         
         
-          11 分钟
+          1 分钟
         
       </span>
     
@@ -272,20 +275,14 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">[Pytorch]设置两个参数来加速设备间的数据拷贝和处理：pin_memory和non_blocking</h1>
+            <h1 style="display: none">[论文笔记]PointFlow: 3D Point Cloud Generation with Continuous Normalizing Flows</h1>
             
             
               <div class="markdown-body">
                 
-                <p>今天在看PointFlow的代码时看到论文作者在dataloader中设置了参数<em>pin_memory=True</em>:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><br>train_loader = torch.utils.data.DataLoader(<br>        dataset=tr_dataset, batch_size=args.batch_size, shuffle=(train_sampler <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>),<br>        num_workers=<span class="hljs-number">0</span>, pin_memory=<span class="hljs-literal">True</span>, sampler=train_sampler, drop_last=<span class="hljs-literal">True</span>,<br>        worker_init_fn=init_np_seed)<br>test_loader = torch.utils.data.DataLoader(<br>        dataset=te_dataset, batch_size=args.batch_size, shuffle=<span class="hljs-literal">False</span>,<br>        num_workers=<span class="hljs-number">0</span>, pin_memory=<span class="hljs-literal">True</span>, drop_last=<span class="hljs-literal">False</span>,<br>        worker_init_fn=init_np_seed)<br></code></pre></td></tr></table></figure>
-<p>以及在将数据拷贝到gpu上时设置了参数<em>non_blocking=True</em>:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># train for one epoch</span><br><span class="hljs-keyword">for</span> bidx, data <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(train_loader):<br>    idx_batch, tr_batch, te_batch = data[<span class="hljs-string">&#x27;idx&#x27;</span>], data[<span class="hljs-string">&#x27;train_points&#x27;</span>], data[<span class="hljs-string">&#x27;test_points&#x27;</span>]<br>    step = bidx + <span class="hljs-built_in">len</span>(train_loader) * epoch<br>    model.train()<br>    <span class="hljs-keyword">if</span> args.random_rotate:<br>        tr_batch, _, _ = apply_random_rotation(<br>            tr_batch, rot_axis=train_loader.dataset.gravity_axis)<br>    inputs = tr_batch.cuda(args.gpu, non_blocking=<span class="hljs-literal">True</span>)<br>    out = model(inputs, optimizer, step, writer)<br></code></pre></td></tr></table></figure>
-<p>上网搜了一下发现有篇博客<a
-target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/477870660">详解Pytorch里的pin_memory
-和
-non_blocking</a>将这两个参数放在一起讲，这篇博客里提到<em>pin_memory=True</em>可以将内存设置为锁页内存以使得GPU跳过缓冲区，直接从锁页的内存上读取数据，从而加快数据在设备间的拷贝。而<em>non_blocking=True</em>的作用则是，使得当数据正在拷贝到GPU的过程中，空闲下来的CPU可以进行后续相邻的不需GPU的计算，而无需等待数据拷贝完成。</p>
-<p>以上只是相当浅显的解释，具体原理可参看上述博客，Pytorch的官方建议是<em>pin_memory=True</em>和<em>non_blocking=True</em>搭配使用，且一般情况下默认都可以使用。</p>
+                <p>论文链接：<a
+target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_ICCV_2019/papers/Yang_PointFlow_3D_Point_Cloud_Generation_With_Continuous_Normalizing_Flows_ICCV_2019_paper.pdf">PointFlow:
+3D Point Cloud Generation with Continuous Normalizing Flows</a></p>
 
                 
               </div>
@@ -294,13 +291,47 @@ non_blocking</a>将这两个参数放在一起讲，这篇博客里提到<em>pin
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/" class="category-chain-item">论文笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E7%82%B9%E4%BA%91%E7%94%9F%E6%88%90/" class="category-chain-item">点云生成</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/pytorch/">#pytorch</a>
+        <a href="/tags/point-based-generation/">#point-based generation</a>
       
-        <a href="/tags/coding/">#coding</a>
+        <a href="/tags/flow-based-model/">#flow-based model</a>
+      
+        <a href="/tags/ICCV/">#ICCV</a>
+      
+        <a href="/tags/2019/">#2019</a>
+      
+        <a href="/tags/oral-paper/">#oral paper</a>
       
     </div>
   
@@ -312,8 +343,8 @@ non_blocking</a>将这两个参数放在一起讲，这篇博客里提到<em>pin
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>[Pytorch]设置两个参数来加速设备间的数据拷贝和处理：pin_memory和non_blocking</div>
-      <div>http://example.com/2022/10/09/Pytorch-Notes-Setting-Two-Arguments-to-Accelerate-Data-Copying-Among-Devices/</div>
+      <div>[论文笔记]PointFlow: 3D Point Cloud Generation with Continuous Normalizing Flows</div>
+      <div>http://example.com/2022/10/10/Paper-Notes-PointFlow-3D-Point-Cloud-Generation-with-Continuous-Normalizing-Flows/</div>
     </div>
     <div class="license-meta">
       
@@ -325,7 +356,7 @@ non_blocking</a>将这两个参数放在一起讲，这篇博客里提到<em>pin
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年10月9日</div>
+          <div>2022年10月10日</div>
         </div>
       
       
@@ -357,9 +388,9 @@ non_blocking</a>将这两个参数放在一起讲，这篇博客里提到<em>pin
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/10/Paper-Notes-PointFlow-3D-Point-Cloud-Generation-with-Continuous-Normalizing-Flows/" title="[论文笔记]PointFlow: 3D Point Cloud Generation with Continuous Normalizing Flows">
+                      <a href="/2022/10/21/Paper-Weekly-Notes-2022-10-23/" title="[论文周记]DreamFusion, Latent-Diffusion, Plenoxel, DVGO and VoxGRAF">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">[论文笔记]PointFlow: 3D Point Cloud Generation with Continuous Normalizing Flows</span>
+                        <span class="hidden-mobile">[论文周记]DreamFusion, Latent-Diffusion, Plenoxel, DVGO and VoxGRAF</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -367,8 +398,8 @@ non_blocking</a>将这两个参数放在一起讲，这篇博客里提到<em>pin
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/09/28/Principle-of-Denoising-Diffusion-Probabilistic-Models/" title="[扩散模型]DDPM原理详解">
-                        <span class="hidden-mobile">[扩散模型]DDPM原理详解</span>
+                      <a href="/2022/10/09/Pytorch-Notes-Setting-Two-Arguments-to-Accelerate-Data-Copying-Among-Devices/" title="[Pytorch]设置两个参数来加速设备间的数据拷贝和处理：pin_memory和non_blocking">
+                        <span class="hidden-mobile">[Pytorch]设置两个参数来加速设备间的数据拷贝和处理：pin_memory和non_blocking</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
