@@ -49,13 +49,13 @@
     <div class="section hero nerf-_v2">
         <div class="container-2 nerf_header_v2 w-container">
             <h1 class="nerf_title_v2">Controllable Text-to-3D Generation via Surface-Aligned Gaussian Splatting</h1>
-            <div class="nerf_subheader_v2">Arxiv 2024</div>
+            <div class="nerf_subheader_v2">3DV 2025</div>
             <div class="nerf_subheader_v2">
                 <div>
                     <a href="https://github.com/lizhiqi49/" target="_blank" class="nerf_authors_v2">Zhiqi Li<span
                             class="text-span_nerf"></span></a><sup> 1,2 </sup>,&nbsp;&nbsp;
                     <a href="https://github.com/codejoker-c/" target="_blank" class="nerf_authors_v2">Yiming Chen<span
-                            class="text-span_nerf"></span></a><sup> 2,3 </sup>,&nbsp;&nbsp;
+                            class="text-span_nerf"></span></a><sup> 1,2 </sup>,&nbsp;&nbsp;
                     <a href="https://github.com/LingzheZhao" target="_blank" class="nerf_authors_v2">Lingzhe Zhao<span
                             class="text-span_nerf"></span></a><sup> 2 </sup>,&nbsp;&nbsp;
                     <a href="https://ethliup.github.io/" target="_blank" class="nerf_authors_v2">Peidong Liu<span
@@ -63,8 +63,7 @@
                 </div>
                 <div>
                     <h1 class="nerf_affiliation_v2"><sup>1 </sup>Zhejiang University</h1>,
-                    <h1 class="nerf_affiliation_v2"><sup>2 </sup>Westlake University</h1>,
-                    <h1 class="nerf_affiliation_v2"><sup>3 </sup>Tongji University</h1>
+                    <h1 class="nerf_affiliation_v2"><sup>2 </sup>Westlake University</h1>
                 </div>
 
                 <div class="external-link">
@@ -72,7 +71,7 @@
                         <i class="ai ai-arxiv"></i> Arxiv </a>
                     <a class="btn" href="assets/paper.pdf" role="button" target="_blank">
                         <i class="fa fa-file-pdf"></i> Paper </a>
-                    <a class="btn" href="https://github.com/WU-CVGL/MVControl-threestudio" role="button" target="_blank" disabled>
+                    <a class="btn" href="https://github.com/WU-CVGL/MVControl" role="button" target="_blank" disabled>
                         <i class="fa-brands fa-github"></i> Code </a>
                     <!-- <a class="btn btn-large btn-light" href="https://lizhiqi49.github.io/MVControl/" role="button" target="_blank" disabled>
                         <i class="fa-brands fa-youtube"></i> Video </a> -->
@@ -114,22 +113,22 @@
             <div class="single-result-3Dblock" id="angel-canny"></div>        
         </div>
         <div class="grid-container-2">
-            <div class="single-result-3Dblock" id="baby_astronaut-canny"></div>
+            <div class="single-result-3Dblock" id="girl1-canny"></div>
             <div class="single-result-3Dblock" id="arthur_horse-canny"></div>        
         </div>
         <div class="grid-container-2">
             <div class="single-result-3Dblock" id="baby_dragon-canny"></div>
             <div class="single-result-3Dblock" id="virgin_mary-canny"></div>        
         </div>
-        <div class="grid-container-2">
-            <div class="single-result-3Dblock" id="girl1-canny"></div>
+        <!-- <div class="grid-container-2">
+            <div class="single-result-3Dblock" id="baby_astronaut-canny"></div>
             <div class="single-result-3Dblock" id="witch_house-canny"></div>        
-        </div>
+        </div> -->
         <!-- ===================== Normal ====================== -->
         <h2 class="grey-heading_nerf">Text-to-3D Conditioned on Normal Maps</h2>
         <div class="grid-container-2">
             <div class="single-result-3Dblock" id="temple-normal"></div>
-            <div class="single-result-3Dblock" id="pikachu-normal"></div>        
+            <div class="single-result-3Dblock" id="girl_armor-normal"></div>
         </div>
         <div class="grid-container-2">
             <div class="single-result-3Dblock" id="girl_fox-normal"></div>
@@ -139,19 +138,15 @@
             <div class="single-result-3Dblock" id="batman-normal"></div>
             <div class="single-result-3Dblock" id="babara-normal"></div>        
         </div>
-        <div class="grid-container-2">
-            <div class="single-result-3Dblock" id="girl_armor-normal"></div>
+        <!-- <div class="grid-container-2">
+            <div class="single-result-3Dblock" id="pikachu-normal"></div>        
             <div class="single-result-3Dblock" id="cat_baseball-normal"></div>        
-        </div>
+        </div> -->
         <!-- ====================== Depth ====================== -->
         <h2 class="grey-heading_nerf">Text-to-3D Conditioned on Depth Maps</h2>
         <div class="grid-container-2">
             <div class="single-result-3Dblock" id="large_hamburger-depth"></div>
             <div class="single-result-3Dblock" id="fatcat-depth"></div>        
-        </div>
-        <div class="grid-container-2">
-            <div class="single-result-3Dblock" id="batgirl-depth"></div>
-            <div class="single-result-3Dblock" id="cat_suit-depth"></div>        
         </div>
         <div class="grid-container-2">
             <div class="single-result-3Dblock" id="girl_dancing-depth"></div>
@@ -161,6 +156,10 @@
             <div class="single-result-3Dblock" id="penguin-depth"></div>
             <div class="single-result-3Dblock" id="broccoli_skull-depth"></div>        
         </div>
+        <!-- <div class="grid-container-2">
+            <div class="single-result-3Dblock" id="batgirl-depth"></div>
+            <div class="single-result-3Dblock" id="cat_suit-depth"></div>        
+        </div> -->
         <!-- ================== User scribble ================== -->
         <h2 class="grey-heading_nerf">Text-to-3D Conditioned on User Scribbles</h2>
         <div class="grid-container-2">
@@ -168,17 +167,17 @@
             <div class="single-result-3Dblock" id="alpaca-scribble"></div>        
         </div>
         <div class="grid-container-2">
-            <div class="single-result-3Dblock" id="owl-scribble"></div>
-            <div class="single-result-3Dblock" id="icecream-scribble"></div>        
-        </div>
-        <div class="grid-container-2">
             <div class="single-result-3Dblock" id="astronaut-scribble"></div>
             <div class="single-result-3Dblock" id="castle-scribble"></div>        
         </div>
         <div class="grid-container-2">
-            <div class="single-result-3Dblock" id="girl_hoodie-scribble"></div>
             <div class="single-result-3Dblock" id="crown-scribble"></div>        
+            <div class="single-result-3Dblock" id="icecream-scribble"></div>        
         </div>
+        <!-- <div class="grid-container-2">
+            <div class="single-result-3Dblock" id="girl_hoodie-scribble"></div>
+            <div class="single-result-3Dblock" id="owl-scribble"></div>
+        </div> -->
 
     </div>
 
@@ -290,19 +289,24 @@
 
 </script>
 
-
 <h2 class="grey-heading_nerf">Citation</h2>
 <div class="white_section_nerf grey_container w-container">
     <div class="bibtex">
         <pre><code>
-    @article{li2024mvcontrol,
+    @inproceedings{li2025mvcontrol,
+        title={Controllable Text-to-3D Generation via Surface-Aligned Gaussian Splatting},
+        author={Zhiqi Li and Yiming Chen and Lingzhe Zhao and Peidong Liu},
+        booktitle={International Conference on 3D Vision (3DV)},
+        year={2025}
+    }
+    <!-- @article{li2024mvcontrol,
         title={Controllable Text-to-3D Generation via Surface-Aligned Gaussian Splatting}, 
         author={Zhiqi Li and Yiming Chen and Lingzhe Zhao and Peidong Liu},
         year={2024},
         eprint={2403.09981},
         archivePrefix={arXiv},
         primaryClass={cs.CV}
-    }
+    } -->
         </code></pre>
     </div>
     </div>
