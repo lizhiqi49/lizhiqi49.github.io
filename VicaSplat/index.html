@@ -162,7 +162,7 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
         <div class="content has-text-justified">
-          <img src="./static/images/teaser.jpg">
+          <img src="./static/images/teaser_shade.jpg">
 
         </div>
       </div>
@@ -238,14 +238,14 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Comparisons of Reconstructed Gaussians</h2>
+        <h2 class="title is-3">Reconstructed 3D Gaussians and Predicted Cameras</h2>
         <div class="content has-text-justified">
-          <img src="./static/images/gaussians1.png">
+          <img src="./static/images/group1.png">
           <div class="columns is-1 is-multiline is-mobile">
             <div class="column pb-0 mb-0 is-one-third">
               <div style="text-align: center;">
                 <a target="_blank"
-                href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/botaoye/NoPoSplat/resolve/main/comparison/compare_ours1.ply">
+                href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/lzq49/VicaSplat/resolve/main/gaussians/586004f337ead821.ply">
                 3DGS Viewer</a>
               </div>
             </div>
@@ -253,7 +253,7 @@
             <div class="column pb-0 mb-0 is-one-third">
               <div style="text-align: center;">
                 <a target="_blank"
-                href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/botaoye/NoPoSplat/resolve/main/comparison/compare_mvsplat1.ply">
+                href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/lzq49/VicaSplat/resolve/main/gaussians/9d496b6788c0f149.ply">
                 3DGS Viewer</a>
               </div>
             </div>
@@ -261,7 +261,7 @@
             <div class="column pb-0 mb-0 is-one-third">
               <div style="text-align: center;">
                 <a target="_blank"
-                href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/botaoye/NoPoSplat/resolve/main/comparison/compare_pixelsplat1.ply">
+                href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/lzq49/VicaSplat/resolve/main/gaussians/8debcd56accec5c3.ply">
                 3DGS Viewer</a>
               </div>
             </div>
@@ -270,12 +270,12 @@
         </div>
 
         <div class="content has-text-justified">
-          <img src="./static/images/gaussians2.png">
+          <img src="./static/images/group2.png">
           <div class="columns is-1 is-multiline is-mobile">
             <div class="column pb-0 mb-0 is-one-third">
               <div style="text-align: center;">
                 <a target="_blank"
-                href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/botaoye/NoPoSplat/resolve/main/comparison/compare_ours2.ply">
+                href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/lzq49/VicaSplat/resolve/main/gaussians/9e561f2486d0afb6.ply">
                 3DGS Viewer</a>
               </div>
             </div>
@@ -283,7 +283,7 @@
             <div class="column pb-0 mb-0 is-one-third">
               <div style="text-align: center;">
                 <a target="_blank"
-                href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/botaoye/NoPoSplat/resolve/main/comparison/compare_mvsplat2.ply">
+                href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/lzq49/VicaSplat/resolve/main/gaussians/d951d621a1ae48a0.ply">
                 3DGS Viewer</a>
               </div>
             </div>
@@ -291,18 +291,13 @@
             <div class="column pb-0 mb-0 is-one-third">
               <div style="text-align: center;">
                 <a target="_blank"
-                href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/botaoye/NoPoSplat/resolve/main/comparison/compare_pixelsplat2.ply">
+                href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/lzq49/VicaSplat/resolve/main/gaussians/df2eb6835b59491f.ply">
                 3DGS Viewer</a>
               </div>
             </div>
           </div>
       
         </div>
-
-      
-          <p>The <span style="color: red;">red</span> and <span style="color: green;">green</span> indicate input and target camera views, and the rendered image and depths are shown on the right side. 
-            The <span style="color: magenta;">magenta</span> and <span style="color: blue;">blue</span> arrows correspond to the distorted or misalignment regions in baseline 3DGS.
-            The results show that even without camera poses as input, our method produces higher-quality 3D Gaussians resulting in better color/depth rendering over baselines.</p>
   
         </div>
       </div>
@@ -314,109 +309,11 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Qualitative Comparisons on NVS</h2>
+        <h2 class="title is-3">Qualitative Comparisons on NVS with 8 Input Views</h2>
         <div class="content has-text-justified">
-          <img src="./static/images/nvs_vis.png">
+          <img src="./static/images/nvs_comparison.png">
 
-          <div
-            class="slideshow-container"
-            style="width: 100%; margin-top: 30px"
-          >
-            <div class="mySlides1">
-              <div class="card">
-                <div style="display: flex; align-items: center">
-                  <div style="flex: 1">
-                    <video id="replay-video" autoplay controls muted preload playsinline loop width="100%">
-                      <source src="static/videos/comparisons/re10k_2.mp4"
-                              type="video/mp4">
-                    </video>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="mySlides1">
-              <div class="card">
-                <div style="display: flex; align-items: center">
-                  <div style="flex: 1">
-                    <video id="replay-video" autoplay controls muted preload playsinline loop width="100%">
-                      <source src="static/videos/comparisons/re10k_1.mp4"
-                              type="video/mp4">
-                    </video>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="mySlides1">
-              <div class="card">
-                <div style="display: flex; align-items: center">
-                  <div style="flex: 1">
-                    <video id="replay-video" autoplay controls muted preload playsinline loop width="100%">
-                      <source src="static/videos/comparisons/re10k_3.mp4"
-                              type="video/mp4">
-                    </video>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="mySlides1">
-              <div class="card">
-                <div style="display: flex; align-items: center">
-                  <div style="flex: 1">
-                    <video id="replay-video" autoplay controls muted preload playsinline loop width="100%">
-                      <source src="static/videos/comparisons/re10k_4.mp4"
-                              type="video/mp4">
-                    </video>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="mySlides1">
-              <div class="card">
-                <div style="display: flex; align-items: center">
-                  <div style="flex: 1">
-                    <video id="replay-video" autoplay controls muted preload playsinline loop width="100%">
-                      <source src="static/videos/comparisons/re10k_5.mp4"
-                              type="video/mp4">
-                    </video>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="mySlides1">
-              <div class="card">
-                <div style="display: flex; align-items: center">
-                  <div style="flex: 1">
-                    <video id="replay-video" autoplay controls muted preload playsinline loop width="100%">
-                      <source src="static/videos/comparisons/re10k_6.mp4"
-                              type="video/mp4">
-                    </video>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Next and previous buttons -->
-            <a class="prev" onclick="plusSlides(1, -1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1, 1)">&#10095;</a>
-          </div>
           <br />
-
-          <!-- The dots/circles -->
-          <div style="text-align: center">
-            <span class="dot1" onclick="currentSlide(1, 1)"></span>
-            <span class="dot1" onclick="currentSlide(1, 2)"></span>
-            <span class="dot1" onclick="currentSlide(1, 3)"></span>
-            <span class="dot1" onclick="currentSlide(1, 4)"></span>
-            <span class="dot1" onclick="currentSlide(1, 5)"></span>
-            <span class="dot1" onclick="currentSlide(1, 6)"></span>
-          </div>
-          <p>Compared to baselines, we obtain: 1) more coherent fusion from input views, 2) superior reconstruction from limited image overlap, 3) enhanced geometry reconstruction in non-overlapping regions.</p>
-  
         </div>
       </div>
     </div>
@@ -424,326 +321,34 @@
 </section>
 
 
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Comparisons of Cross-dataset Generalization</h2>
-        <div class="content has-text-justified">
-          <img src="./static/images/nvs_ood_vis.png">
-          
-          <div
-          class="slideshow-container"
-          style="width: 100%; margin-top: 30px"
-          >
-            <div class="mySlides2">
-              <div class="card">
-                <div style="display: flex; align-items: center">
-                  <div style="flex: 1">
-                    <p>RE10K &#8594 DTU</p>
-                    <video id="replay-video" autoplay controls muted preload playsinline loop width="100%">
-                      <source src="static/videos/comparisons/dtu_1.mp4"
-                              type="video/mp4">
-                    </video>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="mySlides2">
-              <div class="card">
-                <div style="display: flex; align-items: center">
-                  <div style="flex: 1">
-                    <p>RE10K &#8594 DTU</p>
-                    <video id="replay-video" autoplay controls muted preload playsinline loop width="100%">
-                      <source src="static/videos/comparisons/dtu_2.mp4"
-                              type="video/mp4">
-                    </video>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- <div class="mySlides2">
-              <div class="card">
-                <div style="display: flex; align-items: center">
-                  <div style="flex: 1">
-                    <video id="replay-video" autoplay controls muted preload playsinline loop width="100%">
-                      <source src="static/videos/comparisons/dtu_3.mp4"
-                              type="video/mp4">
-                    </video>
-                  </div>
-                </div>
-              </div>
-            </div> -->
-
-            <div class="mySlides2">
-              <div class="card">
-                <div style="display: flex; align-items: center">
-                  <div style="flex: 1">
-                    <p>RE10K &#8594 DTU</p>
-                    <video id="replay-video" autoplay controls muted preload playsinline loop width="100%">
-                      <source src="static/videos/comparisons/dtu_4.mp4"
-                              type="video/mp4">
-                    </video>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="mySlides2">
-              <div class="card">
-                <div style="display: flex; align-items: center">
-                  <div style="flex: 1">
-                    <p>RE10K &#8594 DTU</p>
-                    <video id="replay-video" autoplay controls muted preload playsinline loop width="100%">
-                      <source src="static/videos/comparisons/dtu_5.mp4"
-                              type="video/mp4">
-                    </video>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Next and previous buttons -->
-            <a class="prev" onclick="plusSlides(2, -1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(2, 1)">&#10095;</a>
-          </div>
-          <br />
-
-          <!-- The dots/circles -->
-          <div style="text-align: center">
-            <span class="dot2" onclick="currentSlide(2, 1)"></span>
-            <span class="dot2" onclick="currentSlide(2, 2)"></span>
-            <span class="dot2" onclick="currentSlide(2, 3)"></span>
-            <span class="dot2" onclick="currentSlide(2, 4)"></span>
-            <!-- <span class="dot2" onclick="currentSlide(2, 5)"></span> -->
-          </div>
-
-          <div
-          class="slideshow-container"
-          style="width: 100%; margin-top: 30px"
-          >
-            <div class="mySlides3">
-              <div class="card">
-                <div style="display: flex; align-items: center">
-                  <div style="flex: 1">
-                    <p>RE10K &#8594 ScanNet++</p>
-                    <video id="replay-video" autoplay controls muted preload playsinline loop width="100%">
-                      <source src="static/videos/comparisons/scannetpp_2.mp4"
-                              type="video/mp4">
-                    </video>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="mySlides3">
-              <div class="card">
-                <div style="display: flex; align-items: center">
-                  <div style="flex: 1">
-                    <p>RE10K &#8594 ScanNet++</p>
-                    <video id="replay-video" autoplay controls muted preload playsinline loop width="100%">
-                      <source src="static/videos/comparisons/scannetpp_1.mp4"
-                              type="video/mp4">
-                    </video>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="mySlides3">
-              <div class="card">
-                <div style="display: flex; align-items: center">
-                  <div style="flex: 1">
-                    <p>RE10K &#8594 ScanNet++</p>
-                    <video id="replay-video" autoplay controls muted preload playsinline loop width="100%">
-                      <source src="static/videos/comparisons/scannetpp_4.mp4"
-                              type="video/mp4">
-                    </video>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="mySlides3">
-              <div class="card">
-                <div style="display: flex; align-items: center">
-                  <div style="flex: 1">
-                    <p>RE10K &#8594 ScanNet++</p>
-                    <video id="replay-video" autoplay controls muted preload playsinline loop width="100%">
-                      <source src="static/videos/comparisons/scannetpp_3.mp4"
-                              type="video/mp4">
-                    </video>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Next and previous buttons -->
-            <a class="prev" onclick="plusSlides(3, -1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(3, 1)">&#10095;</a>
-          </div>
-          <br />
-
-          <!-- The dots/circles -->
-          <div style="text-align: center">
-            <span class="dot3" onclick="currentSlide(3, 1)"></span>
-            <span class="dot3" onclick="currentSlide(3, 2)"></span>
-            <span class="dot3" onclick="currentSlide(3, 3)"></span>
-            <span class="dot3" onclick="currentSlide(3, 4)"></span>
-          </div>
-
-
-          <p>Our model can better zero-shot transfer to out-of-distribution data than SOTA pose-required methods. MVSplat and pixelSplat struggle to smoothly merge the underlying geometry and appearance of different input views, 
-            whereas our NoPoSplat renders competitive and holistic novel views due to the design that outputs Gaussians in a canonical coordinate system</p>
-  
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <h2 class="title is-3">
-      <center>More Results on In-the-Wild Data </center>
+      <center>More Novel View Synthesis Results </center>
     </h2>
     <div class="hero-body">
-
-      <h5 class="title is-4">
-        <center>Photos taken with an iPhone </center>
-      </h5>
-      <div class="columns is-1 is-multiline is-mobile">
-        <div class="column pb-0 mb-0 is-half">
+        <div class="column pb-0 mb-0 has-text-centered">
           <video id="teaser" autoplay muted loop playsinline controls  height="100%">
             <source
-              src="./static/videos/kitchen.mp4"
+              src="./static/videos/video1.mp4"
               type="video/mp4">
           </video>
-          <div style="text-align: center;">
-            <img
-                src="./static/images/kitchen.png"
-                alt="input images"
-                style="width: 50%; border: 3px solid #c8c8c8;">
-            <br>
-            <a target="_blank"
-            href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/botaoye/NoPoSplat/resolve/main/kitchen.ply">
-            3DGS Viewer</a>
-          </div>
         </div>
-
-        <div class="column pb-0 mb-0 is-half">
+        
+        <div class="column pb-0 mb-0 has-text-centered">
           <video id="teaser" autoplay muted loop playsinline controls  height="100%">
             <source
-              src="./static/videos/aic.mp4"
+              src="./static/videos/video2.mp4"
               type="video/mp4">
           </video>
-          <div style="text-align: center;">
-            <img
-                src="./static/images/aic.png"
-                alt="input images"
-                style="width: 50%; border: 3px solid #c8c8c8;">
-            <br>
-            <a target="_blank"
-            href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/botaoye/NoPoSplat/resolve/main/aic.ply">
-            3DGS Viewer</a>
-          </div>
         </div>
 
-      </div>
+      
 
-      <h5 class="title is-4">
-        <center>Sora generated images </center>
-      </h5>
-      <div class="columns is-1 is-multiline is-mobile">
-
-        <div class="column pb-0 mb-0 is-half">
-          <video id="teaser" autoplay muted loop playsinline controls  height="100%">
-            <source
-              src="./static/videos/sora4.mp4"
-              type="video/mp4">
-          </video>
-          
-          <div style="text-align: center;">
-            <img
-                src="./static/images/sora_4.png"
-                alt="input images"
-                style="width: 50%; border: 3px solid #c8c8c8;">
-            <br>
-            <a target="_blank"
-            href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/botaoye/NoPoSplat/resolve/main/sora4.ply">
-            3DGS Viewer</a>
-          </div>
-        </div>
-
-        <div class="column pb-0 mb-0 is-half">
-          <video id="teaser" autoplay muted loop playsinline controls  height="100%">
-            <source
-              src="./static/videos/sora_gallery.mp4"
-              type="video/mp4">
-          </video>
-          
-          <div style="text-align: center;">
-            <img
-                src="./static/images/sora_gallery.png"
-                alt="input images"
-                style="width: 50%; border: 3px solid #c8c8c8;">
-            <br>
-            <a target="_blank"
-            href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/botaoye/NoPoSplat/resolve/main/sora_gallery.ply">
-            3DGS Viewer</a>
-          </div>
-        </div>
-      </div>
-
-      <h5 class="title is-4">
-        <center>Images from Tanks&Temples dataset </center>
-      </h5>
-      <div class="columns is-1 is-multiline is-mobile">
-        <div class="column pb-0 mb-0 is-half">
-          <video id="teaser" autoplay muted loop playsinline controls  height="100%">
-            <source
-              src="./static/videos/museum.mp4"
-              type="video/mp4">
-          </video>
-          
-          <div style="text-align: center;">
-            <img
-                src="./static/images/museum.png"
-                alt="input images"
-                style="width: 50%; border: 3px solid #c8c8c8;">
-            <br>
-            <a target="_blank"
-            href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/botaoye/NoPoSplat/resolve/main/museum.ply">
-            3DGS Viewer</a>
-          </div>
-        </div>
-
-        <div class="column pb-0 mb-0 is-half">
-          <video id="teaser" autoplay muted loop playsinline controls  height="100%">
-            <source
-              src="./static/videos/Ignatius.mp4"
-              type="video/mp4">
-          </video>
-          
-          <div style="text-align: center;">
-            <img
-                src="./static/images/Ignatius.png"
-                alt="input images"
-                style="width: 50%; border: 3px solid #c8c8c8;">
-            <br>
-            <a target="_blank"
-            href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/botaoye/NoPoSplat/resolve/main/Ignatius.ply">
-            3DGS Viewer</a>
-          </div>
-        </div>
-
-      </div>
 
     </div>
 
-    </div>
   </div>
 </section>
 
@@ -752,11 +357,11 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{ye2024noposplat,
-      title   = {No Pose, No Problem: Surprisingly Simple 3D Gaussian Splats from Sparse Unposed Images},
-      author  = {Ye, Botao and Liu, Sifei and Xu, Haofei and Xueting, Li and Pollefeys, Marc and Yang, Ming-Hsuan and Songyou, Peng},
-      journal = {arXiv preprint arXiv:2410.24207},
-      year    = {2024}
+    <pre><code>@article{li2025vicasplat,
+      title   = {VicaSplat: A Single Run is All You Need for 3D Gaussian Splatting and Camera Estimation from Unposed Video Frames},
+      author  = {Zhiqi Li and Chengrui Dong and Yiming Chen and Zhangchi Huang and Peidong Liu},
+      journal = {arXiv preprint arXiv:xxxx.xxxxx},
+      year    = {2025}
     }
   </code></pre>
   </div>
