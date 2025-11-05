@@ -43,7 +43,7 @@ layout: default
     <!-- News -->
     {% if page.announcements and page.announcements.enabled %}
       <h2>
-        <a href="{{ '/news/' | relative_url }}" style="color: inherit">news</a>
+        <a style="color: inherit; text-decoration: underline;">news</a>
       </h2>
       {% include news.liquid limit=true %}
     {% endif %}
@@ -51,7 +51,7 @@ layout: default
     <!-- Latest posts -->
     {% if page.latest_posts and page.latest_posts.enabled %}
       <h2>
-        <a href="{{ '/blog/' | relative_url }}" style="color: inherit">latest posts</a>
+        <a style="color: inherit; text-decoration: underline;">latest posts</a>
       </h2>
       {% include latest_posts.liquid %}
     {% endif %}
@@ -59,9 +59,25 @@ layout: default
     <!-- Selected papers -->
     {% if page.selected_papers %}
       <h2>
-        <a href="{{ '/publications/' | relative_url }}" style="color: inherit">selected publications</a>
+        <a style="color: inherit; text-decoration: underline;">Publications</a>
       </h2>
       {% include selected_papers.liquid %}
+    {% endif %}
+
+    <!-- Experiences -->
+    {% if page.experiences %}
+      <h2>
+        <a style="color: inherit; text-decoration: underline;">Experiences</a>
+      </h2>
+      {% include experiences.liquid %}
+    {% endif %}
+    
+    <!-- Services -->
+    {% if page.services %}
+      <h2>
+        <a style="color: inherit; text-decoration: underline;">Services</a>
+      </h2>
+      {% include services.liquid %}
     {% endif %}
 
     <!-- Social -->
@@ -73,8 +89,5 @@ layout: default
       </div>
     {% endif %}
 
-    {% if site.newsletter and site.newsletter.enabled and site.footer_fixed %}
-      {% include newsletter.liquid center=true %}
-    {% endif %}
   </article>
 </div>
