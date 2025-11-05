@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <title>Controllable Text-to-3D Generation via Surface-Aligned Gaussian Splatting</title>
+	<link rel="icon" type="image/x-icon" href="../assets/css/images/favicon.ico">
+    <meta content="Controllable Text-to-3D Generation via Surface-Aligned Gaussian Splatting" name="description" />
+    <meta content="summary" name="twitter:card" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link href="static/css/template.css" rel="stylesheet" type="text/css" />
+    <link href="static/css/my_style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        WebFont.load({
+            google: {
+                families: ["Lato:100,100italic,300,300italic,400,400italic,700,700italic,900,900italic", "Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic", "Ubuntu:300,300italic,400,400italic,500,500italic,700,700italic", "Changa One:400,400italic", "Open Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic", "Varela Round:400", "Bungee Shade:regular", "Roboto:300,regular,500"]
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        ! function (o, c) {
+            var n = c.documentElement,
+                t = " w-mod-";
+            n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
+        }(window, document);
+    </script>
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+    <script type="text/javascript" src="static/js/zoom.js"></script>
+    <script type="text/javascript" src="static/js/video_comparison.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MLDP9MKGC8"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-MLDP9MKGC8');
+    </script>
+
+    <!-- ============= Import the model-viewer ============= -->
+    <!-- <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script> -->
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js"></script>
+
+</head>
+
+<body>
+    <div class="section hero nerf-_v2">
+        <div class="container-2 nerf_header_v2 w-container">
+            <h1 class="nerf_title_v2">Controllable Text-to-3D Generation via Surface-Aligned Gaussian Splatting</h1>
+            <div class="nerf_subheader_v2">3DV 2025</div>
+            <div class="nerf_subheader_v2">
+                <div>
+                    <a href="https://github.com/lizhiqi49/" target="_blank" class="nerf_authors_v2">Zhiqi Li<span
+                            class="text-span_nerf"></span></a><sup> 1,2 </sup>,&nbsp;&nbsp;
+                    <a href="https://github.com/codejoker-c/" target="_blank" class="nerf_authors_v2">Yiming Chen<span
+                            class="text-span_nerf"></span></a><sup> 1,2 </sup>,&nbsp;&nbsp;
+                    <a href="https://github.com/LingzheZhao" target="_blank" class="nerf_authors_v2">Lingzhe Zhao<span
+                            class="text-span_nerf"></span></a><sup> 2 </sup>,&nbsp;&nbsp;
+                    <a href="https://ethliup.github.io/" target="_blank" class="nerf_authors_v2">Peidong Liu<span
+                        class="text-span_nerf"></span></a><sup> 2 </sup>
+                </div>
+                <div>
+                    <h1 class="nerf_affiliation_v2"><sup>1 </sup>Zhejiang University</h1>,
+                    <h1 class="nerf_affiliation_v2"><sup>2 </sup>Westlake University</h1>
+                </div>
+
+                <div class="external-link">
+                    <a class="btn" href="https://arxiv.org/abs/2403.09981" role="button" target="_blank">
+                        <i class="ai ai-arxiv"></i> Arxiv </a>
+                    <a class="btn" href="assets/paper.pdf" role="button" target="_blank">
+                        <i class="fa fa-file-pdf"></i> Paper </a>
+                    <a class="btn" href="https://github.com/WU-CVGL/MVControl" role="button" target="_blank" disabled>
+                        <i class="fa-brands fa-github"></i> Code </a>
+                    <!-- <a class="btn btn-large btn-light" href="https://lizhiqi49.github.io/MVControl/" role="button" target="_blank" disabled>
+                        <i class="fa-brands fa-youtube"></i> Video </a> -->
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <div data-anchor="slide1" class="section nerf_section">
+        <h2 class="grey-heading_nerf">Abstract</h2>
+        <div class="w-container grey_container">
+            <p class="paragraph-3 nerf_text nerf_results_text">
+                While text-to-3D and image-to-3D generation tasks have received considerable attention, one important but under-explored field between them is <strong>controllable text-to-3D generation</strong>, which we mainly focus on in this work. To address this task, <strong>1)</strong> we introduce <strong>ControlNet (MVControl)</strong>, a novel neural network architecture designed to enhance existing pre-trained multi-view diffusion models by integrating additional input conditions, such as edge, depth, normal, and scribble maps. Our innovation lies in the introduction of a conditioning module that controls the base diffusion model using both local and global embeddings, which are computed from the input condition images and camera poses. Once trained, MVControl is able to offer 3D diffusion guidance for optimization-based 3D generation. And, <strong>2)</strong> we propose an efficient <strong>multi-stage 3D generation pipeline</strong> that leverages the benefits of recent large reconstruction models and score distillation algorithm. Building upon our MVControl architecture, we employ a unique hybrid diffusion guidance method to direct the optimization process. In pursuit of efficiency, we adopt 3D Gaussians as our representation instead of the commonly used implicit representations. We also pioneer the use of <strong>SuGaR</strong>, a hybrid representation that binds Gaussians to mesh triangle faces. This approach alleviates the issue of poor geometry in 3D Gaussians and enables the direct sculpting of fine-grained geometry on the mesh. Extensive experiments demonstrate that our method achieves robust generalization and enables the controllable generation of high-quality 3D content.
+                <br>
+                <!-- <img  src="assets/images/overview.png"> -->
+            </p>
+        </div>
+    </div>
+
+    <div class="white_section_nerf  w-container">
+        <h2 class="grey-heading_nerf" >Method Overview</h2>
+        <div class="grid-container-1">
+            <img src="assets/figs/3dpipeline.jpg">
+
+            <p  style="font-family: Roboto; font-weight: 350;"><strong>Overview of proposed method</strong>. The multi-stage pipeline can efficiently generate high-quality textured meshes starting from a set of coarse Gaussians generated by LGM, with the input being the multi-view images generated by our MVControl. In the second stage, we employ a 2D & 3D hybrid diffusion prior for Gaussian optimization. Finally, in the third stage, we calculate the VSD loss to refine the SuGaR representation.
+            </p>
+        </div>
+    </div>
+
+
+    <div class="white_section_nerf  w-container">
+        <!-- ====================== Canny ====================== -->
+        <h2 class="grey-heading_nerf">Text-to-3D Conditioned on Canny Edges</h2>
+        <div class="grid-container-2">
+            <div class="single-result-3Dblock" id="rabbit_bucket-canny"></div>
+            <div class="single-result-3Dblock" id="angel-canny"></div>        
+        </div>
+        <div class="grid-container-2">
+            <div class="single-result-3Dblock" id="girl1-canny"></div>
+            <div class="single-result-3Dblock" id="arthur_horse-canny"></div>        
+        </div>
+        <div class="grid-container-2">
+            <div class="single-result-3Dblock" id="baby_dragon-canny"></div>
+            <div class="single-result-3Dblock" id="virgin_mary-canny"></div>        
+        </div>
+        <!-- <div class="grid-container-2">
+            <div class="single-result-3Dblock" id="baby_astronaut-canny"></div>
+            <div class="single-result-3Dblock" id="witch_house-canny"></div>        
+        </div> -->
+        <!-- ===================== Normal ====================== -->
+        <h2 class="grey-heading_nerf">Text-to-3D Conditioned on Normal Maps</h2>
+        <div class="grid-container-2">
+            <div class="single-result-3Dblock" id="temple-normal"></div>
+            <div class="single-result-3Dblock" id="girl_armor-normal"></div>
+        </div>
+        <div class="grid-container-2">
+            <div class="single-result-3Dblock" id="girl_fox-normal"></div>
+            <div class="single-result-3Dblock" id="panda-normal"></div>        
+        </div>
+        <div class="grid-container-2">
+            <div class="single-result-3Dblock" id="batman-normal"></div>
+            <div class="single-result-3Dblock" id="babara-normal"></div>        
+        </div>
+        <!-- <div class="grid-container-2">
+            <div class="single-result-3Dblock" id="pikachu-normal"></div>        
+            <div class="single-result-3Dblock" id="cat_baseball-normal"></div>        
+        </div> -->
+        <!-- ====================== Depth ====================== -->
+        <h2 class="grey-heading_nerf">Text-to-3D Conditioned on Depth Maps</h2>
+        <div class="grid-container-2">
+            <div class="single-result-3Dblock" id="large_hamburger-depth"></div>
+            <div class="single-result-3Dblock" id="fatcat-depth"></div>        
+        </div>
+        <div class="grid-container-2">
+            <div class="single-result-3Dblock" id="girl_dancing-depth"></div>
+            <div class="single-result-3Dblock" id="doll-depth"></div>        
+        </div>
+        <div class="grid-container-2">
+            <div class="single-result-3Dblock" id="penguin-depth"></div>
+            <div class="single-result-3Dblock" id="broccoli_skull-depth"></div>        
+        </div>
+        <!-- <div class="grid-container-2">
+            <div class="single-result-3Dblock" id="batgirl-depth"></div>
+            <div class="single-result-3Dblock" id="cat_suit-depth"></div>        
+        </div> -->
+        <!-- ================== User scribble ================== -->
+        <h2 class="grey-heading_nerf">Text-to-3D Conditioned on User Scribbles</h2>
+        <div class="grid-container-2">
+            <div class="single-result-3Dblock" id="porcelain-scribble"></div>
+            <div class="single-result-3Dblock" id="alpaca-scribble"></div>        
+        </div>
+        <div class="grid-container-2">
+            <div class="single-result-3Dblock" id="astronaut-scribble"></div>
+            <div class="single-result-3Dblock" id="castle-scribble"></div>        
+        </div>
+        <div class="grid-container-2">
+            <div class="single-result-3Dblock" id="crown-scribble"></div>        
+            <div class="single-result-3Dblock" id="icecream-scribble"></div>        
+        </div>
+        <!-- <div class="grid-container-2">
+            <div class="single-result-3Dblock" id="girl_hoodie-scribble"></div>
+            <div class="single-result-3Dblock" id="owl-scribble"></div>
+        </div> -->
+
+    </div>
+
+    <div class="white_section_nerf  w-container">
+        <h2 class="grey-heading_nerf">Diverse Controllable Multi-view Image Generation</h2>
+        <div class="grid-container-1">
+            <img src="assets/figs/diversity_2d.jpg">
+
+            <p style="font-family: Roboto; font-weight: 350;"><strong>Diverse generated multi-view images of MVControl.</strong> Our MVControl can generate diverse multi-view images with same conditions.
+            </p>
+        </div>
+    </div>
+
+<script>
+    // Manually assign prompts
+    var prompts = {
+        // canny
+        "rabbit_bucket-canny": "A lovely rabbit sat in a bucket, showing itself, adorable.",
+        "angel-canny": "A light white statue of angel with two wings, the angel is sitting on her knees, praying with two hands put together.",
+        "baby_astronaut-canny": "A child astronaut, a cute children wearing space suit, portrait, upper body, digital art, adorable, highest details.",
+        "arthur_horse-canny": "Arthur Morgan, cowboy, he is riding on a horse, lonely, red dead redemption 2 concept art.",
+        "baby_dragon-canny": "A baby dragon, digital art, masterpiece, its tail cocked to one side.",
+        "virgin_mary-canny": "1girl, full body of virgin mary, holy, open-armed, in digital art illustration style, hyper detailed.",
+        "girl1-canny": "1girl, beautiful, photorealistic, portrait, upper body, middle hair, 20 years old, off-shoulder blouse, extremely detailed.",
+        "witch_house-canny": "A witch house, gruesome, delicate, pointy roof, masterpiece, 3d asset.",
+        // normal
+        "temple-normal": "A Japanese temple, 3d asset, video game asset, concept art.",
+        "pikachu-normal": "A very cute pikachu, real life, laughing, full body, adorable, highly detailed.",
+        "girl_fox-normal": "1girl, close-up, upper body, mature female, portrait, wolf-like ears, 20 years old, medium hair, floating hair, masterpiece.",
+        "panda-normal": "A cute panda, sitting, adorable, extremely detailed.",
+        "batman-normal": "Masterpiece, batman, portrait, upper body, superhero, cape, mask.",
+        "babara-normal": "1girl, wearing white stockings and white dress, holding the hemline with two hands, double ponytail, small top hat, full body, anime style, beautiful.",
+        "girl_armor-normal": "1girl, full body armor, full face helmet, posed, extremely detailed.",
+        "cat_baseball-normal": "A cat holding a baseball bat, full body, standing, very cute, masterpiece, best quality.",
+        // depth
+        "large_hamburger-depth": "Luxurious multi-layered burgers, delicious, extremely.",
+        "fatcat-depth": "A fat cat, standing with hands in pants pockets.",
+        "batgirl-depth": "1girl, batgirl, mask, long hair, domino mask, belt, superhero, black bodysuit, slim, belt buckle, horns, bat print, curvy, narrow waist.",
+        "cat_suit-depth": "A cute cat wearing white suit, pink bowknot on its head, standing, full body, hello kitty shoes.",
+        "girl_dancing-depth": "1girl is dancing ballet, two legs crossed, wearing a dance skirt, beautiful, delicate face.",
+        "doll-depth": "Doll, full body, Obama, toy, best quality.",
+        "penguin-depth": "A cute penguin wearing smoking is riding skateboard, Adorable Charactor, extremely detailed.",
+        "broccoli_skull-depth": "Skull, masterpiece, a human skull made of broccoli.",
+        // scribble
+        "porcelain-scribble": "A bottle, blue and white porcelain, intricate patterns, extremely detailed.",
+        "alpaca-scribble": "A portrait of an alpaca, digital art, wearing black eye patch on face, anime style.",
+        "owl-scribble": "A white owl doll, metallic, polygonal, best quality.",
+        "icecream-scribble": "A vanilla coffee ice cream cone with whipped cream, colorful, delicious, extremely detailed.",
+        "astronaut-scribble": "An astronaut, full body, spacesuit, walking pose.",
+        "castle-scribble": "A gorgeous castle on a hill, realistic materials, realistic textures, 3d rendering, game art.",
+        "girl_hoodie-scribble": "A DSLR photo of 1girl, portrait, beautiful, stand pose, front full body, laughing, very long hoodie, hands in hoodie pocket, air bangs, 20 years old.",
+        "crown-scribble": "A crown with diamonds, golden, delicate."
+    };
+    // 定义一个函数，接收参数并生成模块内容
+    function getModule(imageSrc, videoSrc, modelSrc, promptText) {
+        const module_block = document.createElement("div");
+        // module_block.classList.add("single-result-3Dblock");
+
+        module_block.innerHTML = `
+            <div class="grid-container-3">
+                <div>
+                    <p style="margin-bottom: -20px; font-weight: bold; text-align: center; position: relative;"> Condition Image </p>
+                    <img style="width: 100%; height: auto;" src="${imageSrc}">
+                </div>
+                <div>
+                    <p style="margin-bottom: 0px; font-weight: bold; text-align: center;"> SuGaR </p>
+                    <video class="video" loop playsinline autoplay muted src="${videoSrc}"></video>
+                </div>
+                <div>
+                    <p style="margin-bottom: 0px; font-weight: bold; text-align: center;"> Textured Mesh </p>
+                    <model-viewer alt="Test model viewer" src="${modelSrc}" style="width: auto; height: 76%; position: relative; align-items: center; justify-content: center;" shadow-intensity="1" auto-rotate camera-controls torch-action="pan-y" ar-status="not-presenting"></model-viewer>
+                </div>
+            </div>
+            <p class="myprompt">${promptText}</p>
+        `;
+
+        return module_block;
+    }
+
+    function createModule(moduleID, imageSrc, videoSrc, modelSrc, promptText) {
+        const module_ = getModule(
+            imageSrc, videoSrc, modelSrc, promptText
+        )
+        document.getElementById(moduleID).appendChild(module_)
+    }
+
+    async function readModuleData(modules) {
+        for (let i = 0; i < modules.length; i++) {
+            const module = modules[i];
+            const moduleID = module.id;
+            const [name, cond] = moduleID.split("-");
+
+            // Construct the file path
+            const conditionImage = `assets/condition/${name}_${cond}.png`;
+            const videoPath = `assets/video256/${moduleID}.mp4`;
+            const meshPath = `assets/mesh/${moduleID}.glb`;
+            const prompt = prompts[moduleID]
+
+            console.log(`Current module: ${moduleID}`)
+
+            createModule(moduleID, conditionImage, videoPath, meshPath, prompt);
+
+        }
+    }
+
+    var modules = document.getElementsByClassName('single-result-3Dblock');
+    console.log(`Number of modules: ${modules.length}`)
+    readModuleData(modules);
+
+</script>
+
+<h2 class="grey-heading_nerf">Citation</h2>
+<div class="white_section_nerf grey_container w-container">
+    <div class="bibtex">
+        <pre><code>
+    @inproceedings{li2025mvcontrol,
+        title={Controllable Text-to-3D Generation via Surface-Aligned Gaussian Splatting},
+        author={Zhiqi Li and Yiming Chen and Lingzhe Zhao and Peidong Liu},
+        booktitle={International Conference on 3D Vision (3DV)},
+        year={2025}
+    }
+    <!-- @article{li2024mvcontrol,
+        title={Controllable Text-to-3D Generation via Surface-Aligned Gaussian Splatting}, 
+        author={Zhiqi Li and Yiming Chen and Lingzhe Zhao and Peidong Liu},
+        year={2024},
+        eprint={2403.09981},
+        archivePrefix={arXiv},
+        primaryClass={cs.CV}
+    } -->
+        </code></pre>
+    </div>
+    </div>
+
+</body>
+<footer>
+    This project page is inspired by <a href="https://mrtornado24.github.io/DreamCraft3D/">DreamCraft3D</a>.
+</footer>
+
+</html>
+

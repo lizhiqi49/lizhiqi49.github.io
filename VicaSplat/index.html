@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="VicaSplat">
+  <meta name="keywords" content="3DGS, Pose-free, Novel view synthesis, Pose estimation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VicaSplat</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+  
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+  crossorigin="anonymous"
+  /> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="./static/js/video_comparison.js"></script>
+</head>
+<body>
+
+  <!-- <h1 style="font-size: 2.5em; color: #ff6347; font-weight: bold; text-align: center;">
+    No <span style="color: #1e90ff;">Pose</span>, No <span style="color: #32cd32;">Problem</span>:
+</h1>
+<h2 style="text-align: center; margin-top: -10px;">
+    Surprisingly Simple 3D Gaussian Splats from Sparse Unposed Images
+</h2> -->
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <!-- <h1 class="title is-1 publication-title"><span style="color: #ff6347;">No</span> <span style="color: #1e90ff;">Pose</span>, <span style="color: #ff6347;">No</span> <span style="color: #1e90ff;">Problem</span> <img src="static/images/icon.svg" width="50" style="position: relative; top: 4px;"> </h1> -->
+          <h2 class="title is-3 publication-title">VicaSplat: A Single Run is All You Need for 3D Gaussian Splatting and Camera Estimation from Unposed Video Frames</h2>
+          <h2 class="title is-4 publication-title"> Arxiv 2025</h2>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://github.com/lizhiqi49/">Zhiqi Li</a><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://github.com/forgetable233">Chengrui Dong</a><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://github.com/codejoker-c">Yiming Chen</a><sup>1,2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://github.com/Dylan-Hzc">Zhangchi Huang</a><sup>1,2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://ethliup.github.io/">Peidong Liu</a><sup>† 2</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Zhejiang University</span> &nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block"><sup>2</sup>Westlake University</span> &nbsp;&nbsp;&nbsp;&nbsp;
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2503.10286"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2503.10286"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link.
+              <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/WU-CVGL/VicaSplat"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="content has-text-justified">
+        Can a pose-free generalizable reconstruction model surpass pose-required methods in NVS? Our answer is yes! <br>
+        Can a model trained without GT depth or matching loss surpass SOTA methods in pose estimation? Our answer is yes!
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- <section class="hero is-light is-small has-text-centered">
+  <div class="hero-body">
+    <div class="container">
+      <img src="./static/images/teaser.jpg">
+
+    </div>
+  </div>
+</section> -->
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <div class="content has-text-justified">
+          <img src="./static/images/teaser_shade.jpg">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- <section class="hero is-light is-small has-text-centered"> -->
+<section class="hero has-text-centered">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <!-- <div class="column is-full-width"> -->
+        <h2 class="title is-3">Abstract</h2>
+        <section class="hero is-light is-small has-text-centered">
+        <div class="hero-body">
+        <div class="content has-text-justified">
+          <!-- <img src="./static/images/teaser.jpg"> -->
+          We introduce <strong>VicaSplat</strong>, a feed-forward model for 3D Gaussian splatting prediction and camera pose estimation from a sequence of unposed images, which is a challenging yet practical task for real-world applications. The core of our method features a novel transformer-based network architecture. In particular, our model starts with an image encoder that maps each image into a list of visual tokens. All the visual tokens are concatenated together with additional learnable anchor tokens for camera poses. A novel transformer decoder is then used to process all the tokens such that they can fully communicate with each other. The anchor tokens causally probe features from visual tokens of different views, and further modulate them frame-wisely to inject view-dependent features. 3D Gaussian splatting and camera pose parameters can then be estimated via different prediction heads. Experiments show that VicaSplat surpasses state-of-the-art methods for multi-view inputs, and achieves comparable performance to prior two-view approaches. Notably, VicaSplat also demonstrates exceptional cross-dataset generalization capability on the ScanNet benchmark, achieving superior performance without any domain-specific fine-tuning.
+        </div>
+        </div>
+        </section>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <!-- <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div> -->
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Method Overview</h2>
+        <div class="content has-text-justified">
+          <img src="./static/images/overview.jpg">
+
+          <p><strong>Overview of VicaSplat</strong>. The model employs a transformer 
+            encoder to convert video frames into visual tokens, while a custom transformer 
+            decoder with learnable camera tokens processes these representations. 
+            Several dedicated prediction heads then predict camera poses and 3D Gaussian splats respectively.</p>
+          
+          <img src="./static/images/block_all.jpg">
+          <p><strong>Architecture of one block in VicaSplat decoder</strong>. Both camera tokens and visual tokens 
+            are fed into the block. They firstly fully interact with each other within a <i>Video-Camera Attention</i> 
+            layer. Then the visual tokens go through an additional <i>Cross-Neighbor Attention</i> layer to enhance 
+            the view-consistency. Moreover, we utilize the differentiated camera tokens to further inject the complex 
+            view-dependent features into visual tokens via <i>Framewise Modulation</i>. </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Reconstructed 3D Gaussians and Predicted Cameras</h2>
+        <div class="content has-text-justified">
+          <img src="./static/images/group1.png">
+          <div class="columns is-1 is-multiline is-mobile">
+            <div class="column pb-0 mb-0 is-one-third">
+              <div style="text-align: center;">
+                <a target="_blank"
+                href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/lzq49/VicaSplat/resolve/main/gaussians/586004f337ead821.ply">
+                3DGS Viewer</a>
+              </div>
+            </div>
+
+            <div class="column pb-0 mb-0 is-one-third">
+              <div style="text-align: center;">
+                <a target="_blank"
+                href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/lzq49/VicaSplat/resolve/main/gaussians/9d496b6788c0f149.ply">
+                3DGS Viewer</a>
+              </div>
+            </div>
+
+            <div class="column pb-0 mb-0 is-one-third">
+              <div style="text-align: center;">
+                <a target="_blank"
+                href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/lzq49/VicaSplat/resolve/main/gaussians/8debcd56accec5c3.ply">
+                3DGS Viewer</a>
+              </div>
+            </div>
+          </div>
+      
+        </div>
+
+        <div class="content has-text-justified">
+          <img src="./static/images/group2.png">
+          <div class="columns is-1 is-multiline is-mobile">
+            <div class="column pb-0 mb-0 is-one-third">
+              <div style="text-align: center;">
+                <a target="_blank"
+                href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/lzq49/VicaSplat/resolve/main/gaussians/9e561f2486d0afb6.ply">
+                3DGS Viewer</a>
+              </div>
+            </div>
+
+            <div class="column pb-0 mb-0 is-one-third">
+              <div style="text-align: center;">
+                <a target="_blank"
+                href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/lzq49/VicaSplat/resolve/main/gaussians/d951d621a1ae48a0.ply">
+                3DGS Viewer</a>
+              </div>
+            </div>
+
+            <div class="column pb-0 mb-0 is-one-third">
+              <div style="text-align: center;">
+                <a target="_blank"
+                href="./viewer/index.html?is_object=false&url=https://huggingface.co/datasets/lzq49/VicaSplat/resolve/main/gaussians/df2eb6835b59491f.ply">
+                3DGS Viewer</a>
+              </div>
+            </div>
+          </div>
+      
+        </div>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Qualitative Comparisons on NVS with 8 Input Views</h2>
+        <div class="content has-text-justified">
+          <img src="./static/images/nvs_comparison.png">
+
+          <br />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">
+      <center>More Novel View Synthesis Results </center>
+    </h2>
+    <div class="hero-body">
+        <div class="column pb-0 mb-0 has-text-centered">
+          <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+            <source
+              src="./static/videos/video1.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+        
+        <div class="column pb-0 mb-0 has-text-centered">
+          <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+            <source
+              src="./static/videos/video2.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+      
+
+
+    </div>
+
+  </div>
+</section>
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{li2025vicasplat,
+      title   = {VicaSplat: A Single Run is All You Need for 3D Gaussian Splatting and Camera Estimation from Unposed Video Frames},
+      author  = {Zhiqi Li and Chengrui Dong and Yiming Chen and Zhangchi Huang and Peidong Liu},
+      journal = {arXiv preprint arXiv:2503.10286},
+      year    = {2025}
+    }
+  </code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Website source code based on the <a rel="nerfies" href="https://nerfies.github.io/">Nerfies</a> project page
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+
+<!-- Fancybox -->
+<script src="fancybox/fancybox.umd.js"></script>
+<script>
+  Fancybox.bind("[data-fancybox]", {
+    infinite: false,
+    Thumbs: {
+      autoStart: false,
+    },
+  });
+</script>
+
+<!-- Javascript Functions -->
+<script type="text/javascript">
+  let slideIndex = [1, 1, 1, 1, 1];
+  let slideId = 0;
+  showSlides(slideId, slideIndex[slideId]);
+  showSlides(1, slideIndex[1]);
+  showSlides(2, slideIndex[2]);
+  showSlides(3, slideIndex[3]);
+  showSlides(4, slideIndex[4]);
+
+  // Next/previous controls
+  function plusSlides(id, n) {
+    showSlides(id, (slideIndex[id] += n));
+  }
+
+  // Thumbnail image controls
+  function currentSlide(id, n) {
+    showSlides(id, (slideIndex[id] = n));
+  }
+
+  function showSlides(id, n) {
+    let i;
+    let slides = document.getElementsByClassName("mySlides" + id);
+    let dots = document.getElementsByClassName("dot" + id);
+    if (n > slides.length) {
+      slideIndex[id] = 1;
+    }
+    if (n < 1) {
+      slideIndex[id] = slides.length;
+    }
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex[id] - 1].style.display = "block";
+    dots[slideIndex[id] - 1].className += " active";
+  }
+
+  // Automatic slideshow
+  setInterval(() => {
+    plusSlides(0, 1);
+  }, 150000); // Change image every 5 seconds
+</script>
+
+</body>
+</html>
