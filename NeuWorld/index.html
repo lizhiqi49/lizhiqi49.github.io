@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="NeuWorld: Walking in the Implicit. Interactive world exploration via neural scene representation." />
+  <meta name="keywords" content="NeuWorld, neural implicit scene, interactive world exploration, camera-controlled generation, world model" />
+  <meta property="og:title" content="NeuWorld: Walking in the Implicit" />
+  <meta property="og:description" content="Interactive world exploration via Neural Implicit Scene rollout." />
+  <meta property="og:image" content="assets/images/logo/neuworld_logo_white_bg.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>NeuWorld: Walking in the Implicit</title>
+
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="static/css/index.css" />
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+</head>
+
+<body>
+  <header class="site-nav" data-nav>
+    <a class="nav-brand" href="#top" aria-label="NeuWorld home">
+      <img class="brand-mark" src="assets/images/logo/neuworld_logo_no_words.webp" alt="" />
+      <span>NeuWorld</span>
+    </a>
+    <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-nav-toggle>
+      <i data-lucide="menu"></i>
+    </button>
+    <nav class="nav-links" data-nav-links>
+      <a href="#abstract">Abstract</a>
+      <a href="#method">Method</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#citation">BibTeX</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero section-pad">
+      <div class="page-shell hero-shell">
+        <!-- <picture class="hero-logo reveal">
+          <source srcset="assets/images/logo/neuworld_logo_white_bg.webp" type="image/webp" />
+          <img src="assets/images/logo/neuworld_logo_white_bg.png" alt="NeuWorld logo" />
+        </picture> -->
+        <div class="venue-pill reveal">ECCV 2026</div>
+        <h1 class="paper-title reveal">Walking in the Implicit</h1>
+        <p class="paper-subtitle reveal">Interactive World Exploration via Neural Scene Representation</p>
+        <p class="hero-summary reveal">
+          NeuWorld rolls out a fixed-length, renderable Neural Implicit Scene state and renders queried observations under camera control.
+        </p>
+
+        <div class="authors reveal">
+          <a href="https://lizhiqi49.github.io" target="_blank" rel="noopener">Zhiqi Li</a><sup>1,2</sup>
+          <a href="https://github.com/forgetable233" target="_blank" rel="noopener">Chengrui Dong</a><sup>1,2</sup>
+          <a href="https://github.com/duzh11" target="_blank" rel="noopener">Zhenhua Du</a><sup>1,2</sup>
+          <span>Hangning Zhou</span><sup>3,†</sup>
+          <span>Cong Qiu</span><sup>3</sup>
+          <span>Hailong Qin</span><sup>3</sup>
+          <span>Mu Yang</span><sup>3</sup>
+          <a href="https://wswdx.github.io" target="_blank" rel="noopener">Dongxu Wei</a><sup>2</sup>
+          <a href="https://ethliup.github.io" target="_blank" rel="noopener">Peidong Liu</a><sup>2,*</sup>
+        </div>
+
+        <div class="affiliations reveal">
+          <div class="institution-row">
+            <span><sup>1</sup>Zhejiang University</span>
+            <span><sup>2</sup>Westlake University</span>
+            <span><sup>3</sup>Afari Intelligent Drive</span>
+          </div>
+          <div class="footnote-row">
+            <span><sup>†</sup>Project Lead</span>
+            <span><sup>*</sup>Corresponding Author</span>
+          </div>
+        </div>
+
+        <div class="link-row reveal" aria-label="Project links">
+          <a class="link-button" href="#" aria-label="arXiv link placeholder">
+            <i data-lucide="scroll-text"></i>
+            <span>arXiv</span>
+          </a>
+          <a class="link-button primary" href="assets/papers/neuworld.pdf" target="_blank" rel="noopener">
+            <i data-lucide="file-text"></i>
+            <span>Paper</span>
+          </a>
+          <a class="link-button" href="https://github.com/WU-CVGL/NeuWorld" target="_blank" rel="noopener">
+            <svg aria-hidden="true" viewBox="0 0 24 24" class="brand-icon">
+              <path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.52 2.87 8.36 6.84 9.72.5.09.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.04 1.03-2.76-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05A9.31 9.31 0 0 1 12 6.96c.85 0 1.7.12 2.5.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.64 1.03 2.76 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.59.69.49A10.16 10.16 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"></path>
+            </svg>
+            <span>Code</span>
+          </a>
+          <a class="link-button" href="#" aria-label="Hugging Face link placeholder">
+            <i data-lucide="archive"></i>
+            <span>Hugging Face</span>
+          </a>
+          <a class="link-button" href="#citation">
+            <i data-lucide="quote"></i>
+            <span>BibTeX</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="teaser-section">
+      <div class="wide-shell">
+        <figure class="media-frame teaser-frame reveal">
+          <picture>
+            <source srcset="assets/images/teaser.webp" type="image/webp" />
+            <img src="assets/images/teaser.png" alt="NeuWorld teaser showing camera-controlled exploration from a neural implicit scene state." />
+          </picture>
+        </figure>
+        <div class="concept-strip reveal" aria-label="NeuWorld concept">
+          <div class="concept-item">
+            <div class="concept-icon"><i data-lucide="route"></i></div>
+            <div>
+              <strong>Query camera motion</strong>
+              <span>Future poses define the next local exploration segment.</span>
+            </div>
+          </div>
+          <div class="concept-item">
+            <div class="concept-icon"><i data-lucide="box"></i></div>
+            <div>
+              <strong>Roll out NIS</strong>
+              <span>A compact scene state evolves instead of a growing frame sequence.</span>
+            </div>
+          </div>
+          <div class="concept-item">
+            <div class="concept-icon"><i data-lucide="aperture"></i></div>
+            <div>
+              <strong>Render queried views</strong>
+              <span>The sampled state is decoded into pose-conditioned observations.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad" id="abstract">
+      <div class="page-shell abstract-section">
+        <div class="center-heading abstract-heading reveal">
+          <span class="section-kicker">Abstract</span>
+        </div>
+        <div class="abstract-body abstract-panel reveal">
+          <p class="key-idea">
+            <strong>Key idea.</strong> Replace autoregressive frame-latent rollout with a fixed-length renderable scene state.
+          </p>
+          <p>
+            Interactive video generation systems for camera-controlled world exploration roll out growing sequences of latent video frames, entangling state transition with high-frequency observation synthesis. We propose <em>Walking in the Implicit</em>, a scene-centric paradigm that changes the rollout variable from frame latents to a fixed-length, renderable implicit state, termed <em>Neural Implicit Scene</em> (NIS).
+          </p>
+          <p>
+            This factorizes interactive generation into stochastic transition of a compact scene state and deterministic pose-conditioned rendering given the sampled state. We instantiate this paradigm as <strong>NeuWorld</strong>: a transformer VAE learns locally anchored NIS from sparse posed frames, and a diffusion transformer evolves NIS conditioned on future camera trajectories and geometry-aware retrieved history.
+          </p>
+          <p>
+            By reusing the VAE encoder as a unified conditioner, NeuWorld maps camera, reference-image, and history cues into the same NIS modality, avoiding external heterogeneous encoders. Trained from scratch on public posed-view data without pretrained video backbones or auxiliary 3D reconstructors, NeuWorld achieves strong long-horizon consistency with favorable inference efficiency.
+          </p>
+          <div class="keyword-row">
+            <span>Interactive World Exploration</span>
+            <span>Neural Implicit Scene</span>
+            <span>Camera-Controlled Generation</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad soft-band" id="method">
+      <div class="page-shell">
+        <div class="center-heading reveal">
+          <span class="section-kicker">Method</span>
+        </div>
+
+        <figure class="media-frame figure-frame reveal">
+          <picture>
+            <source srcset="assets/images/pipeline.webp" type="image/webp" />
+            <img src="assets/images/pipeline.png" alt="NeuWorld method pipeline with partial NIS conditioning, geometry-aware retrieval, NIS-DiT rollout, and decoder rendering." />
+          </picture>
+          <figcaption>
+            At each interaction step, partial NIS and memory NIS conditions guide NIS-DiT to sample the next local scene state, which the frozen decoder renders under queried future poses.
+          </figcaption>
+        </figure>
+
+        <div class="method-grid reveal">
+          <article class="method-card">
+            <span>01</span>
+            <h3>Encode partial NIS</h3>
+            <p>Current observation and sparse future poses are mapped into the same NIS modality as the rollout state.</p>
+          </article>
+          <article class="method-card">
+            <span>02</span>
+            <h3>Retrieve memory</h3>
+            <p>Geometry-aware retrieval selects history frames relevant to the upcoming camera trajectory.</p>
+          </article>
+          <article class="method-card">
+            <span>03</span>
+            <h3>Sample scene state</h3>
+            <p>A diffusion transformer evolves fixed-length NIS tokens under camera and history conditions.</p>
+          </article>
+          <article class="method-card">
+            <span>04</span>
+            <h3>Render observations</h3>
+            <p>The frozen NIS decoder deterministically renders queried views from the sampled local state.</p>
+          </article>
+        </div>
+
+        <div class="contribution-band reveal">
+          <div>
+            <strong>Scene-state rollout</strong>
+            <span>Fixed-capacity NIS replaces growing video-latent trajectories.</span>
+          </div>
+          <div>
+            <strong>Unified conditioning</strong>
+            <span>Camera, reference image, and history cues share one latent scene interface.</span>
+          </div>
+          <div>
+            <strong>History-aware consistency</strong>
+            <span>Retrieved memory supports long-horizon rollout and revisitation.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad" id="gallery">
+      <div class="page-shell">
+        <div class="center-heading reveal">
+          <span class="section-kicker">Gallery</span>
+        </div>
+
+        <div class="gallery-shell reveal">
+          <div class="tab-list" role="tablist" aria-label="Gallery figures">
+            <button class="tab-button active" type="button" role="tab" aria-selected="true" aria-controls="panel-rollouts" id="tab-rollouts" data-tab="rollouts">Forward-return loops</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="panel-comparison" id="tab-comparison" data-tab="comparison">Comparison</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="panel-partial" id="tab-partial" data-tab="partial">Partial NIS</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="panel-probing" id="tab-probing" data-tab="probing">Latent probing</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="panel-interp" id="tab-interp" data-tab="interp">Interpolation</button>
+          </div>
+
+          <div class="tab-panels">
+            <article class="tab-panel active" role="tabpanel" id="panel-rollouts" aria-labelledby="tab-rollouts" data-panel="rollouts">
+              <div class="rollout-grid">
+                <figure class="rollout-card">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/re10k-posters/living-room-loop.png" src="assets/videos/re10k/living-room-loop.mp4" aria-label="Living room forward-return loop"></video>
+                </figure>
+                <figure class="rollout-card">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/re10k-posters/kitchen-red-loop.png" src="assets/videos/re10k/kitchen-red-loop.mp4" aria-label="Kitchen forward-return loop"></video>
+                </figure>
+                <figure class="rollout-card">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/re10k-posters/open-living-loop.png" src="assets/videos/re10k/open-living-loop.mp4" aria-label="Open living area forward-return loop"></video>
+                </figure>
+                <figure class="rollout-card">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/re10k-posters/harbor-view-loop.png" src="assets/videos/re10k/harbor-view-loop.mp4" aria-label="Outdoor view forward-return loop"></video>
+                </figure>
+                <figure class="rollout-card">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/re10k-posters/exterior-entry-loop.png" src="assets/videos/re10k/exterior-entry-loop.mp4" aria-label="Exterior entry forward-return loop"></video>
+                </figure>
+                <figure class="rollout-card">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/re10k-posters/pool-loop.png" src="assets/videos/re10k/pool-loop.mp4" aria-label="Poolside forward-return loop"></video>
+                </figure>
+                <figure class="rollout-card">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/re10k-posters/wooden-living-loop.png" src="assets/videos/re10k/wooden-living-loop.mp4" aria-label="Wooden interior forward-return loop"></video>
+                </figure>
+                <figure class="rollout-card">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/re10k-posters/kitchen-warm-loop.png" src="assets/videos/re10k/kitchen-warm-loop.mp4" aria-label="Warm kitchen forward-return loop"></video>
+                </figure>
+                <figure class="rollout-card">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/re10k-posters/aerial-neighborhood-loop.png" src="assets/videos/re10k/aerial-neighborhood-loop.mp4" aria-label="Aerial neighborhood forward-return loop"></video>
+                </figure>
+                <figure class="rollout-card">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/re10k-posters/loft-interior-loop.png" src="assets/videos/re10k/loft-interior-loop.mp4" aria-label="Loft interior forward-return loop"></video>
+                </figure>
+                <figure class="rollout-card">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/re10k-posters/dining-corner-loop.png" src="assets/videos/re10k/dining-corner-loop.mp4" aria-label="Dining corner forward-return loop"></video>
+                </figure>
+                <figure class="rollout-card">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/re10k-posters/bright-hall-loop.png" src="assets/videos/re10k/bright-hall-loop.mp4" aria-label="Bright hall forward-return loop"></video>
+                </figure>
+                <figure class="rollout-card">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/re10k-posters/staircase-loop.png" src="assets/videos/re10k/staircase-loop.mp4" aria-label="Staircase forward-return loop"></video>
+                </figure>
+                <figure class="rollout-card">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/re10k-posters/bedroom-loop.png" src="assets/videos/re10k/bedroom-loop.mp4" aria-label="Bedroom forward-return loop"></video>
+                </figure>
+                <figure class="rollout-card">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/re10k-posters/sofa-room-loop.png" src="assets/videos/re10k/sofa-room-loop.mp4" aria-label="Sofa room forward-return loop"></video>
+                </figure>
+                <figure class="rollout-card">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/re10k-posters/hallway-loop.png" src="assets/videos/re10k/hallway-loop.mp4" aria-label="Hallway forward-return loop"></video>
+                </figure>
+                <figure class="rollout-card">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/re10k-posters/white-kitchen-loop.png" src="assets/videos/re10k/white-kitchen-loop.mp4" aria-label="White kitchen forward-return loop"></video>
+                </figure>
+                <figure class="rollout-card">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/re10k-posters/black-kitchen-loop.png" src="assets/videos/re10k/black-kitchen-loop.mp4" aria-label="Black kitchen forward-return loop"></video>
+                </figure>
+                <figure class="rollout-card">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/re10k-posters/patio-loop.png" src="assets/videos/re10k/patio-loop.mp4" aria-label="Patio forward-return loop"></video>
+                </figure>
+                <figure class="rollout-card">
+                  <video autoplay muted loop playsinline preload="metadata" poster="assets/images/re10k-posters/tv-room-loop.png" src="assets/videos/re10k/tv-room-loop.mp4" aria-label="TV room forward-return loop"></video>
+                </figure>
+              </div>
+            </article>
+
+            <article class="tab-panel" role="tabpanel" id="panel-comparison" aria-labelledby="tab-comparison" data-panel="comparison" hidden>
+              <figure class="media-frame gallery-frame">
+                <picture>
+                  <source srcset="assets/images/main_comparison.webp" type="image/webp" />
+                  <img src="assets/images/main_comparison.png" alt="Qualitative comparison between NeuWorld and camera-controlled generation baselines." />
+                </picture>
+                <figcaption>NeuWorld preserves scene geometry and appearance consistency under short- and long-horizon camera-controlled rollout.</figcaption>
+              </figure>
+            </article>
+
+            <article class="tab-panel" role="tabpanel" id="panel-partial" aria-labelledby="tab-partial" data-panel="partial" hidden>
+              <figure class="media-frame gallery-frame">
+                <picture>
+                  <source srcset="assets/images/partial_nis_qualitative_evidence.webp" type="image/webp" />
+                  <img src="assets/images/partial_nis_qualitative_evidence.jpg" alt="Partial NIS qualitative evidence showing camera-aligned structure." />
+                </picture>
+                <figcaption>Partial NIS inputs remain non-collapsing and retain useful camera-aligned structure for conditioning.</figcaption>
+              </figure>
+            </article>
+
+            <article class="tab-panel" role="tabpanel" id="panel-probing" aria-labelledby="tab-probing" data-panel="probing" hidden>
+              <figure class="media-frame gallery-frame">
+                <picture>
+                  <source srcset="assets/images/latent_space_probing.webp" type="image/webp" />
+                  <img src="assets/images/latent_space_probing.png" alt="Latent space probing results for neural implicit scene tokens." />
+                </picture>
+                <figcaption>Latent probing visualizes how NIS tokens encode renderable scene information rather than frame-indexed observations.</figcaption>
+              </figure>
+            </article>
+
+            <article class="tab-panel" role="tabpanel" id="panel-interp" aria-labelledby="tab-interp" data-panel="interp" hidden>
+              <div class="split-gallery">
+                <figure class="media-frame gallery-frame">
+                  <picture>
+                    <source srcset="assets/images/nis_latent_interp_same_seq_refshift.webp" type="image/webp" />
+                    <img src="assets/images/nis_latent_interp_same_seq_refshift.jpg" alt="Same-sequence NIS latent interpolation with reference shift." />
+                  </picture>
+                  <figcaption>Same-sequence interpolation shows smooth transitions under reference shifts.</figcaption>
+                </figure>
+                <figure class="media-frame gallery-frame">
+                  <picture>
+                    <source srcset="assets/images/nis_latent_interp_cross_seq.webp" type="image/webp" />
+                    <img src="assets/images/nis_latent_interp_cross_seq.jpg" alt="Cross-sequence NIS latent interpolation." />
+                  </picture>
+                  <figcaption>Cross-sequence interpolation probes the continuity of the learned NIS space.</figcaption>
+                </figure>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad soft-band" id="citation">
+      <div class="page-shell citation-shell">
+        <div class="section-heading reveal">
+          <span class="section-kicker">Citation</span>
+          <!-- <h2>BibTeX</h2> -->
+          <picture class="citation-logo">
+            <source srcset="assets/images/logo/neuworld_logo_black_bg.webp" type="image/webp" />
+            <img src="assets/images/logo/neuworld_logo_black_bg.png" alt="NeuWorld logo on dark background" />
+          </picture>
+        </div>
+        <div class="bibtex-card reveal">
+          <button class="copy-button" type="button" data-copy-bibtex>
+            <i data-lucide="copy"></i>
+            <span>Copy</span>
+          </button>
+          <pre><code id="bibtex">@inproceedings{li2026neuworld,
+  title     = {Walking in the Implicit: Interactive World Exploration via Neural Scene Representation},
+  author    = {Li, Zhiqi and Dong, Chengrui and Du, Zhenhua and Zhou, Hangning and Qiu, Cong and Qin, Hailong and Yang, Mu and Wei, Dongxu and Liu, Peidong},
+  booktitle = {European Conference on Computer Vision (ECCV)},
+  year      = {2026}
+}</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="page-shell">
+      <span>NeuWorld</span>
+      <a href="#top">Back to top</a>
+    </div>
+  </footer>
+</body>
+</html>
