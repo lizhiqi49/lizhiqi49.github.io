@@ -359,6 +359,9 @@ ninja.data = [{
           section: "News",},{id: "news-our-paper-omni-scene-is-accepted-by-cvpr-2025-sparkles-smile",
           title: 'Our paper Omni-Scene is accepted by CVPR 2025! :sparkles: :smile:',
           description: "",
+          section: "News",},{id: "news-our-paper-neuworld-is-accepted-by-eccv-2026-sparkles-smile",
+          title: 'Our paper NeuWorld is accepted by ECCV 2026! :sparkles: :smile:',
+          description: "",
           section: "News",},{
         id: 'social-email',
         title: 'email',
